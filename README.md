@@ -2,7 +2,7 @@
 
 ## Introduction
 
-   Douban Crawler is a scrapy crawler project for crawling movie and book information of douban.com.
+   Douban Crawler is a scrapy crawler project for crawling movie and book information of https://douban.com.
 
 ## Featues
 
