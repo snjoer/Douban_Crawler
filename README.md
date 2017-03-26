@@ -4,7 +4,7 @@
 
    Douban Crawler is a scrapy crawler project for crawling movie and book information of douban.com.
 
-## Featues:
+## Featues
 
    * Distributed Crawling: Given that the data is of overwhelming size, distributed cralwing is inevitable for our project.
 
