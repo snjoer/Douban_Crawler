@@ -1,4 +1,7 @@
 # Douban Crawler
+[![Build Status](https://img.shields.io/badge/build-passing-green.svg)]()
+[![Python Version](https://img.shields.io/badge/python-2.7-orange.svg)]()
+[![License Type](https://img.shields.io/badge/license-GPL-blue.svg)]()
 
 ## Introduction
 
