@@ -14,6 +14,15 @@ BOT_NAME = 'douban_crawler'
 SPIDER_MODULES = ['douban_crawler.spiders']
 NEWSPIDER_MODULE = 'douban_crawler.spiders'
 
+# Enables scheduling storing requests queue in redis.
+SCHEDULER = "scrapy_redis.scheduler.Scheduler"
+
+# Ensure all spiders share same duplicates filter through redis.
+DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
+
+REDIS_HOST = 'localhost'
+
+REDIS_PORT = 6379
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'douban_crawler (+http://www.yourdomain.com)'
