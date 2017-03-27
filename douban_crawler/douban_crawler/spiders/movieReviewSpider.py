@@ -1,7 +1,7 @@
 '''
 
 This spider extracts review content from the given link of "review_links" 
-which can be accessed from Redis Data base by redis_key: "review_links" 
+which can be accessed from Redis Database by redis_key: "review_links" 
 and stores the content to HBase Database.
 
 '''

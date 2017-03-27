@@ -1,10 +1,10 @@
 '''
 
 This spider extracts specific content from given movie links which can be 
-accessed from Redis Data base by key word "movie_links" and stores the data
+accessed from Redis Database by redis_key "movie_links" and stores the data
 to HBase.
 Moreover, this spider should export link to more reviews to Redis Database
-as key word "more_reviews".
+as redis_key "more_reviews".
 
 '''
 
