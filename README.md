@@ -7,6 +7,12 @@
 
    Douban Crawler is a scrapy crawler project for crawling movie and book information of https://douban.com.
 
+## Architecture
+
+   The architecture of this project is as follows:
+
+   ![](https://github.com/Rafael-Cheng/Douban_Crawler/blob/master/architecture.png)
+
 ## Featues
 
    * Distributed Crawling: Given that the data is of overwhelming size, distributed cralwing is inevitable for our project.
