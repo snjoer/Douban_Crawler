@@ -14,16 +14,12 @@
    ![](https://github.com/Rafael-Cheng/Douban_Crawler/blob/master/architecture.png)
 
    \* the required data of a movie contains:
-      
-      1. Name
-      
-      2. Director
+   1. Name
+   2. Director
+   3. Release Time
+   4. Country
 
-      3. Release Time
-
-      4. Country
-
-## Featues
+## Features
 
    * Distributed Crawling: Given that the data is of overwhelming size, distributed cralwing is inevitable for our project.
 
