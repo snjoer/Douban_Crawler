@@ -19,6 +19,10 @@
    3. Release Time
    4. Country
 
+   The graph below shoes the undelying architecture of scrapy-redis:
+
+   ![](https://github.com/Rafael-Cheng/Douban_Crawler/blob/master/scrapy-redis%20Architecture.png)
+
 ## Features
 
    * Distributed Crawling: Given that the data is of overwhelming size, distributed cralwing is inevitable for our project.
