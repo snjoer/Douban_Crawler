@@ -14,10 +14,18 @@
    ![](https://github.com/Rafael-Cheng/Douban_Crawler/blob/master/architecture.png)
 
    \* the required data of a movie contains:
-   1. Name
+   1. Movie Name
    2. Director
    3. Release Time
    4. Country
+   
+   \* the review data consists of:
+   1. Movie Name
+   2. Review Title
+   3. Review Author
+   4. Review Content
+   5. Up Number
+   6. Down Number
 
    The graph below shows the undelying architecture of scrapy-redis:
 
