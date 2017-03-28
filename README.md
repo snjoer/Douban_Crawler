@@ -19,7 +19,7 @@
    3. Release Time
    4. Country
 
-   The graph below shows the undelying architecture of scrapy-redis:
+   The graph below shows the underlying architecture of scrapy-redis:
 
    ![](https://github.com/Rafael-Cheng/Douban_Crawler/blob/master/scrapy-redis%20Architecture.png)
 
