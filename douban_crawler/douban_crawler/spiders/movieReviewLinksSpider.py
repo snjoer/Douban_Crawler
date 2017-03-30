@@ -9,11 +9,20 @@ those links is "review_links".
 
 import scrapy
 from scrapy_redis.spiders import RedisSpider
+import os
 
 class MovieReviewLinksSpider(RedisSpider):
     name = "reviewLinks"
     redis_key = "more_reviews"
 
     def parse(self, response):
-        #todo
-        pass
+        lists = response.xpath('//div[@class="main review_item"]') 
+         
+        for li in lists:
+            link=li.xpath('.//header[@class="main-hd"]/h3[@class="title"]/a/@herf').extract()
+            print link    
+                
+           # os.system(redis-cli lpush more_reviews_link link)
+            
+     
+     
