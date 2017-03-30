@@ -8,7 +8,23 @@
 import scrapy
 
 
-class DoubanCrawlerItem(scrapy.Item):
+class DoubanCrawlerItem_movie(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
-    pass
+
+    MovieName = scrapy.Field()
+    Director = scrapy.Field()
+    ReleaseTime = scrapy.Field()
+    Country = scrapy.Field()
+
+
+class DoubanCrawlerItem_review(scrapy.Item):
+    # define the fields for your item here like:
+    # name = scrapy.Field()
+
+    MovieName = scrapy.Field()
+    ReviewTitle = scrapy.Field()
+    ReviewAuthor = scrapy.Field()
+    ReviewContent = scrapy.Field()
+    UpNumber = scrapy.Field()
+    DownNumber = scrapy.Field()
