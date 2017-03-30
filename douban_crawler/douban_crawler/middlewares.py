@@ -36,13 +36,13 @@ class RotateUserAgentMiddleware(UserAgentMiddleware):
         "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/535.24 (KHTML, like Gecko) Chrome/19.0.1055.1 Safari/535.24"
     ]
 
-
 class ProxyMiddleware(object):
     
     #从数据库中读取代理url
     proxyList = ['218.92.220.58:8080', '43.226.162.23:80', '27.148.151.27:80', '124.88.67.7:843']
     
     def process_request(self, request, spider):
+        pass
         # Set the location of the proxy
         pro_adr = random.choice(self.proxyList)
         print "*******-----------*Current Proxy IP:%s*-----------***********" %pro_adr
