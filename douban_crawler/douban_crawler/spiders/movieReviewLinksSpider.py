@@ -15,5 +15,5 @@ class MovieReviewLinksSpider(RedisSpider):
     redis_key = "more_reviews"
 
     def parse(self, response):
-        #todo
+        # todo
         pass
