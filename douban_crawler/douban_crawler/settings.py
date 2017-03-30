@@ -75,7 +75,7 @@ ROBOTSTXT_OBEY = True
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
 #    'douban_crawler.pipelines.SomePipeline': 300,
-    'scrapy_redis.pipeline.RedisPipeline': 300
+    'scrapy_redis.pipelines.RedisPipeline': 300
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

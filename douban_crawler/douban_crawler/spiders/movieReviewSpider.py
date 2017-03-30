@@ -7,10 +7,10 @@ and stores the content to HBase Database.
 '''
 
 import scrapy
-from scrapy.redis.spider import RedisSpider
+from scrapy_redis.spiders import RedisSpider
 
 class MovieReviewSpider(RedisSpider):
-    name = "reviewLinks"
+    name = "review"
     redis_key = "review_links"
 
     def parse(self, response):

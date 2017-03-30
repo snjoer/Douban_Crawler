@@ -8,12 +8,12 @@ those links is "review_links".
 '''
 
 import scrapy
-from scrapy.redis.spider import RedisSpider
+from scrapy_redis.spiders import RedisSpider
 
 class MovieReviewLinksSpider(RedisSpider):
     name = "reviewLinks"
     redis_key = "more_reviews"
 
     def parse(self, response):
-        # todo
+        #todo
         pass

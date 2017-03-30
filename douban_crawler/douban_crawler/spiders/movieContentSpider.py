@@ -9,7 +9,7 @@ as redis_key "more_reviews".
 '''
 
 import scrapy
-from scrapy.redis.spider import RedisSpider
+from scrapy_redis.spiders import RedisSpider
 
 class MovieContentSpider(RedisSpider):
     name = "movieContent"

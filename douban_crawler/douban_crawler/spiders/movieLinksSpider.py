@@ -6,7 +6,7 @@ to Redis Database with redis_key: "movie_links"
 '''
 
 import scrapy
-from scrapy.redis.spider import RedisSpider
+from scrapy_redis.spiders import RedisSpider
 
 class DoubanMovieSpider(RedisSpider):
     name = "movieLinks"
