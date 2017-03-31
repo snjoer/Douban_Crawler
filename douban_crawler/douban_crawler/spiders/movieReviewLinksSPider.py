@@ -12,16 +12,26 @@ from scrapy_redis.spiders import RedisSpider
 import os
 
 class MovieReviewLinksSpider(RedisSpider):
+    count = 0
+    total = 0
     name = "reviewLinks"
     redis_key = "more_reviews"
 
     def parse(self, response):
-        lists = response.xpath('//div[@class="main review_item"]')
-
+        url = response.url
+        lists = response.xpath('//a[@class="title-link"]/@href')
+        
         for li in lists:
-            link=li.xpath('.//header[@class="main-hd"]/h3[@class="title"]/a/@herf').extract()
-        print link
+            command = "redis-cli lpush review_links " + li.extract()
+            os.system(command)
+        
 
-           # os.system(redis-cli lpush more_reviews_link link)
-
+        if self.count == 0:
+            num = response.xpath('//span[@class="thispage"]/@data-total-page').extract()[0]
+            num = int(num)
+            self.total = num * 20-20
+        self.count += 20 
+        if self.count < self.total:
+            new_url = url + '?' + str(self.count)
+            scrapy.Request(new_url, callback=self.parse)
 
