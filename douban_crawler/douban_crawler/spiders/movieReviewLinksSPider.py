@@ -25,13 +25,14 @@ class MovieReviewLinksSpider(RedisSpider):
             command = "redis-cli lpush review_links " + li.extract()
             os.system(command)
         
-
+        print "count: " + str(self.count)
         if self.count == 0:
             num = response.xpath('//span[@class="thispage"]/@data-total-page').extract()[0]
             num = int(num)
-            self.total = num * 20-20
+            self.total = num * 20
         self.count += 20 
         if self.count < self.total:
             new_url = url + '?' + str(self.count)
             yield scrapy.Request(new_url, callback=self.parse)
-
+        else:
+            self.count = 0
