@@ -8,6 +8,7 @@ and stores the content to HBase Database.
 
 import scrapy
 from scrapy_redis.spiders import RedisSpider
+from douban_crawler.items import ReviewItem
 
 class MovieReviewSpider(RedisSpider):
     name = "review"

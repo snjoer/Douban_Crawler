@@ -10,6 +10,7 @@ as redis_key "more_reviews".
 
 import scrapy
 from scrapy_redis.spiders import RedisSpider
+from douban_crawler.items import MovieItem
 
 class MovieContentSpider(RedisSpider):
     name = "movieContent"
