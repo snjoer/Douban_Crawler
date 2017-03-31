@@ -32,7 +32,7 @@ class MovieReviewLinksSpider(RedisSpider):
         self.count += 20 
         # crawl all pages.
         if self.count < self.total:
-            new_url = url + '?' + str(self.count)
+            new_url = url + '?start=' + str(self.count)
             yield scrapy.Request(new_url, callback=self.parse)
         # reset count when all pages have been crawled.
         else:
