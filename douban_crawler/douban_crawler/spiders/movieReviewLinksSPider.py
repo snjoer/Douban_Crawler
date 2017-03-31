@@ -33,5 +33,5 @@ class MovieReviewLinksSpider(RedisSpider):
         self.count += 20 
         if self.count < self.total:
             new_url = url + '?' + str(self.count)
-            scrapy.Request(new_url, callback=self.parse)
+            yield scrapy.Request(new_url, callback=self.parse)
 
