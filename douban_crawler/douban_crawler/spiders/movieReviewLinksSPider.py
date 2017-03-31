@@ -14,11 +14,11 @@ import os
 class MovieReviewLinksSpider(RedisSpider):
     count = 0
     total = 0
+    url = ""
     name = "reviewLinks"
     redis_key = "more_reviews"
 
     def parse(self, response):
-        url = response.url
         lists = response.xpath('//a[@class="title-link"]/@href')
         
         for li in lists:
@@ -28,11 +28,12 @@ class MovieReviewLinksSpider(RedisSpider):
         if self.count == 0:
             num = response.xpath('//span[@class="thispage"]/@data-total-page').extract()[0]
             num = int(num)
+            self.url = response.url
             self.total = num * 20
         self.count += 20 
         # crawl all pages.
         if self.count < self.total:
-            new_url = url + '?start=' + str(self.count)
+            new_url = self.url + '?start=' + str(self.count)
             yield scrapy.Request(new_url, callback=self.parse)
         # reset count when all pages have been crawled.
         else:
