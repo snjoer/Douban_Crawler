@@ -14,5 +14,10 @@ class MovieReviewSpider(RedisSpider):
     redis_key = "review_links"
 
     def parse(self, response):
+        for sel in response.xpath('div[@id="link-report"]'):
+            item = DoubanCrawlerItem_review
+            item['ReviewContent'] = sel.xpath('p/text()').extract()
+            yield items
+
         # todo
         pass
