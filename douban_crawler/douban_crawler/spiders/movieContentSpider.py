@@ -17,5 +17,5 @@ class MovieContentSpider(RedisSpider):
     redis_key = "movie_links"
 
     def parse(self, response):
-        # todo
+        #todo
         pass
