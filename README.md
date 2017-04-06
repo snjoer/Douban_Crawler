@@ -26,6 +26,7 @@
    4. Review Content
    5. Up Number
    6. Down Number
+   7. Rate
 
    The graph below shows the underlying architecture of scrapy-redis:
 
