@@ -28,3 +28,4 @@ class ReviewItem(scrapy.Item):
     ReviewContent = scrapy.Field()
     UpNumber = scrapy.Field()
     DownNumber = scrapy.Field()
+    Rate = scrapy.Field()

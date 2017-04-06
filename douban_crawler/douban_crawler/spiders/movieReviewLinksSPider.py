@@ -29,7 +29,8 @@ class MovieReviewLinksSpider(RedisSpider):
             num = response.xpath('//span[@class="thispage"]/@data-total-page').extract()[0]
             num = int(num)
             self.url = response.url
-            self.total = num * 20
+#            self.total = num * 20
+            self.total = 21
         self.count += 20 
         # crawl all pages.
         if self.count < self.total:
