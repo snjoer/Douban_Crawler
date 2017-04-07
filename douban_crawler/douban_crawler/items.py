@@ -8,7 +8,7 @@
 import scrapy
 
 
-class DoubanCrawlerItem_movie(scrapy.Item):
+class MovieItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
 
@@ -18,7 +18,7 @@ class DoubanCrawlerItem_movie(scrapy.Item):
     Country = scrapy.Field()
 
 
-class DoubanCrawlerItem_review(scrapy.Item):
+class ReviewItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
 
