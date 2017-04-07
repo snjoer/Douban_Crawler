@@ -7,10 +7,10 @@ Table: Douban_Movies
 
 Table Structure:
 CREATE TABLE Douban_Movies (
-Name varchar(50) NOT NULL, 
-Director varchar(50) NOT NULL, 
+Name varchar(200) NOT NULL, 
+Director varchar(100) NOT NULL, 
 Release_Time varchar(50) NOT NULL, 
-Country varchar(50) NOT NULL)CHARSET=utf8;
+Country varchar(50) NOT NULL)CHARSET=utf8mb4;
 '''
 
 import json

@@ -7,13 +7,13 @@ Table: Reviews
 
 Table Structure:
 CREATE TABLE Reviews 
-(Name varchar(100) NOT NULL, 
-Title varchar(200) NOT NULL, 
+(Name VARCHAR(200) NOT NULL, 
+Title VARCHAR(200) NOT NULL, 
 Author varchar(50) NOT NULL, 
-Content varchar(3000) NOT NULL, 
+Content TEXT NOT NULL, 
 UpNumber INT NOT NULL, 
 DownNumber INT NOT NULL,
-Rate INT NOT NULL)CHARSET=utf8;
+Rate INT NOT NULL)CHARSET=utf8mb4;
 '''
 
 import json
