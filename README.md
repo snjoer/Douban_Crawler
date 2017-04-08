@@ -18,8 +18,9 @@
    2. Post Url
    3. Director
    4. Release Time
-   5. Country
-   
+   5. Area
+   6. Performers
+
    \* the review data consists of:
    1. Movie Name
    2. Movie Link
