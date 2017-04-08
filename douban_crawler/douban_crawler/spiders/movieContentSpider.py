@@ -29,6 +29,7 @@ class MovieContentSpider(RedisSpider):
         director = response.xpath('//a[@rel="v:directedBy"]/text()').extract()[0].replace('"', '\'\'')
         time = response.xpath('//span[@property="v:initialReleaseDate"]/text()').extract()
         pls = response.xpath('//span[@class="pl"]')
+        performers = ''.join(response.xpath('//span[@class="actor"]/span[@class="attrs"]//text()').extract()[0:-1])
         for pl in pls:
             text_list = pl.xpath('./text()').extract()
             if len(text_list) > 0:
@@ -40,7 +41,9 @@ class MovieContentSpider(RedisSpider):
         item['MovieName'] = name
         item['Director'] = director
         item['ReleaseTime'] = ','.join(time)
-        item['Country'] = country
+        item['Area'] = country
+        item['Performers'] = performers
+        print performers
         more_reviews = response.url + 'reviews'
         command = 'redis-cli -h ' + host + ' lpush more_reviews ' \
                 + more_reviews

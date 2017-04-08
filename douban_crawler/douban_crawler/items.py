@@ -17,8 +17,8 @@ class MovieItem(scrapy.Item):
     MovieName = scrapy.Field()
     Director = scrapy.Field()
     ReleaseTime = scrapy.Field()
-    Country = scrapy.Field()
-
+    Area = scrapy.Field()
+    Performers = scrapy.Field()
 
 class ReviewItem(scrapy.Item):
     # define the fields for your item here like:

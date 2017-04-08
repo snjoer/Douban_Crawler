@@ -11,7 +11,8 @@ Name varchar(500) NOT NULL,
 PostUrl varchar(200) NOT NULL,
 Director varchar(300) NOT NULL, 
 Release_Time varchar(500) NOT NULL, 
-Country varchar(500) NOT NULL)CHARSET=utf8mb4;
+Area varchar(500) NOT NULL,
+Performers varchar(500) NOT NULL)CHARSET=utf8mb4;
 '''
 
 import json
@@ -44,7 +45,8 @@ def main():
                         item['PostUrl'],\
                         item['Director'],\
                         item['ReleaseTime'],\
-                        item['Country'])
+                        item['Area'],\
+                        item['Performers'])
                 cursor.execute(sql)
                 mysql_conn.commit()
                 print "Insert one"
