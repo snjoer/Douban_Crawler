@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from fake_useragent import UserAgent
+import numpy
+from fake_useragent import UserAgent 
 from scrapy.downloadermiddlewares.useragent import UserAgentMiddleware
 
 class RotateUserAgentMiddleware(UserAgentMiddleware):
@@ -8,11 +9,12 @@ class RotateUserAgentMiddleware(UserAgentMiddleware):
         self.user_agent = user_agent
         
     def process_request(self,request,spider):
-        ua = UserAgent() 
-        print "********Current UserAgent:%s************" %ua  
+        ua = UserAgent()
+        user_agent = ua.random
+        print "********Current UserAgent:%s************" % user_agent
         #log.msg('Current UserAgent: '+ua, level='INFO') 
-        request.headers.setdefault('User-Agent', ua.random)
-            
+        request.headers.setdefault('User-Agent', user_agent)
+
 class ProxyMiddleware(object):
     
     #从数据库中读取代理url
