@@ -17,16 +17,18 @@ class MovieReviewSpider(RedisSpider):
 
     def parse(self, response):
         item = ReviewItem()
-        name = response.xpath('//header[@class="main-hd"]/a/text()').extract()[2]
-        title = response.xpath('//span[@property="v:summary"]/text()').extract()[0]
-        author = response.xpath('//span[@property="v:reviewer"]/text()').extract()[0]
+        name = response.xpath('//header[@class="main-hd"]/a/text()').extract()[2].replace('"', '\"').replace("'", "\'")
+        title = response.xpath('//span[@property="v:summary"]/text()').extract()[0].replace('"', '\"').replace("'", "\'")
+        author = response.xpath('//span[@property="v:reviewer"]/text()').extract()[0].replace('"', '\"').replace("'", "\'")
         content = '\n'.join(response.\
-                xpath('//div[@property="v:description"]/p//text()').extract())
+                xpath('//div[@property="v:description"]//text()').extract())
+        content = content.replace('"', '\'\'')
         vote = response.xpath('//div[@class="main-panel-useful"]/button/text()').extract()
         up = int(''.join(re.findall('[0-9]*', vote[0])))
         down = int(''.join(re.findall('[0-9]*', vote[1])))
         rate = int(''.join(response.xpath('//span[@property="v:rating"]/text()').extract()[0]))
-
+        
+        item['url'] = response.url
         item['MovieName'] = name
         item['ReviewTitle'] = title
         item['ReviewAuthor'] = author

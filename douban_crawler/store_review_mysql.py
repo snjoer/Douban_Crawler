@@ -28,7 +28,7 @@ def connectMySQL():
     conn = pymysql.connect(host='localhost',
                              user='root',
                              db='douban_movies',
-                             charset='utf8',
+                             charset='utf8mb4',
                              cursorclass=pymysql.cursors.DictCursor)
     return conn
 
@@ -38,16 +38,18 @@ def main():
     while True:
         source, data = redis_conn.blpop(['review:items'])
         item = json.loads(data)
+        cursor = mysql_conn.cursor()
         try:
             with mysql_conn.cursor() as cursor:
-                sql = "INSERT INTO Reviews VALUES \
-                        ('%s', '%s', '%s', '%s', %d, %d, %d);" %\
-                        (item['MovieName'], item['ReviewTitle'],\
-                        item['ReviewAuthor'], item['ReviewContent'],\
-                        item['UpNumber'], item['DownNumber'], item['Rate'])
-                cursor.execute(sql)
-                mysql_conn.commit()
-        except Exception as e:
+            sql = 'INSERT INTO Reviews VALUES \
+                    ("%s", "%s", "%s", "%s", %d, %d, %d);' %\
+                    (item['MovieName'], item['ReviewTitle'],\
+                    item['ReviewAuthor'], item['ReviewContent'],\
+                    item['UpNumber'], item['DownNumber'], item['Rate'])
+            cursor.execute(sql)
+            mysql_conn.commit()
+            print "Insert one"
+        except Exception, e:
             print e.message
 
 if __name__ == '__main__':

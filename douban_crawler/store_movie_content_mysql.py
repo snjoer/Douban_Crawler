@@ -7,10 +7,10 @@ Table: Douban_Movies
 
 Table Structure:
 CREATE TABLE Douban_Movies (
-Name varchar(200) NOT NULL, 
-Director varchar(100) NOT NULL, 
-Release_Time varchar(50) NOT NULL, 
-Country varchar(50) NOT NULL)CHARSET=utf8mb4;
+Name varchar(500) NOT NULL, 
+Director varchar(300) NOT NULL, 
+Release_Time varchar(500) NOT NULL, 
+Country varchar(500) NOT NULL)CHARSET=utf8mb4;
 '''
 
 import json
@@ -37,15 +37,16 @@ def main():
         item = json.loads(data)
         try:
             with mysql_conn.cursor() as cursor:
-                sql = "INSERT INTO Douban_Movies VALUES \
-                        ('%s', '%s', '%s', '%s');" %\
+                sql = 'INSERT INTO Douban_Movies VALUES \
+                        ("%s", "%s", "%s", "%s");' %\
                         (item['MovieName'],\
                         item['Director'],\
                         item['ReleaseTime'],\
                         item['Country'])
                 cursor.execute(sql)
                 mysql_conn.commit()
-        except Exception as e:
+                print "Insert one"
+        except Exception, e:
             print e.message
 
 if __name__ == '__main__':

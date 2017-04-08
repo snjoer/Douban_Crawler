@@ -24,8 +24,8 @@ class MovieContentSpider(RedisSpider):
 
     def parse(self, response):
         item = MovieItem()
-        name = response.xpath('//h1/span/text()').extract()[0]
-        director = response.xpath('//a[@rel="v:directedBy"]/text()').extract()[0]
+        name = response.xpath('//h1/span/text()').extract()[0].replace('"', '\"').replace("'", "\'")
+        director = response.xpath('//a[@rel="v:directedBy"]/text()').extract()[0].replace('"', '\"').replace("'", "\'")
         time = response.xpath('//span[@property="v:initialReleaseDate"]/text()').extract()
         pls = response.xpath('//span[@class="pl"]')
         for pl in pls:
@@ -33,6 +33,7 @@ class MovieContentSpider(RedisSpider):
             if len(text_list) > 0:
                 if text_list[0] == '制片国家/地区:':
                     country = pl.xpath('./following::text()').extract()[0]
+        item['url'] = response.url
         item['MovieName'] = name
         item['Director'] = director
         item['ReleaseTime'] = ','.join(time)
