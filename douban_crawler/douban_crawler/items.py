@@ -13,9 +13,11 @@ class DoubanCrawlerItem_movie(scrapy.Item):
     # name = scrapy.Field()
 
     Movie Name = scrapy.Field()
+    Post Url = scrapy.Field()
     Director = scrapy.Field()
-    Release Time= scrapy.Field()
-    Country = scrapy.Field()
+    Release Time = scrapy.Field()
+    Area = scrapy.Field()
+    Performers = scrapy.Field()
 
 
 class DoubanCrawlerItem_review(scrapy.Item):
@@ -23,11 +25,14 @@ class DoubanCrawlerItem_review(scrapy.Item):
     # name = scrapy.Field()
 
     Movie Name = scrapy.Field()
+    Movie Link = scrapy.Field()
     Review Title = scrapy.Field()
     Review Author = scrapy.Field()
+    Author Link = scrapy.Field()
     Review Content = scrapy.Field()
     Up Number = scrapy.Field()
     Down Number = scrapy.Field()
+    Rate = scrapy.Field()
 
 
 
