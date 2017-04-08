@@ -8,8 +8,10 @@ Table: Reviews
 Table Structure:
 CREATE TABLE Reviews 
 (Name VARCHAR(200) NOT NULL, 
+MovieLink VARCHAR(200) NOT NULL,
 Title VARCHAR(200) NOT NULL, 
 Author varchar(50) NOT NULL, 
+AuthorLink VARCHAR(200), NOT NULL
 Content TEXT NOT NULL, 
 UpNumber INT NOT NULL, 
 DownNumber INT NOT NULL,
@@ -42,9 +44,9 @@ def main():
         try:
             with mysql_conn.cursor() as cursor:
             sql = 'INSERT INTO Reviews VALUES \
-                    ("%s", "%s", "%s", "%s", %d, %d, %d);' %\
-                    (item['MovieName'], item['ReviewTitle'],\
-                    item['ReviewAuthor'], item['ReviewContent'],\
+                    ("%s", "%s", "%s", "%s", "%s", "%s", %d, %d, %d);' %\
+                    (item['MovieName'], item['MovieLink'], item['ReviewTitle'],\
+                    item['ReviewAuthor'], item['AuthorLink'], item['ReviewContent'],\
                     item['UpNumber'], item['DownNumber'], item['Rate'])
             cursor.execute(sql)
             mysql_conn.commit()

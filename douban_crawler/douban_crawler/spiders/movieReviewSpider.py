@@ -18,8 +18,10 @@ class MovieReviewSpider(RedisSpider):
     def parse(self, response):
         item = ReviewItem()
         name = response.xpath('//header[@class="main-hd"]/a/text()').extract()[2].replace('"', '\'\'')
+        movie_link = response.xpath('//header[@class="main-hd"]/a/@href').extract()[1]
         title = response.xpath('//span[@property="v:summary"]/text()').extract()[0].replace('"', '\'\'')
         author = response.xpath('//span[@property="v:reviewer"]/text()').extract()[0].replace('"', '\'\'')
+        author_link = response.xpath('//header[@class="main-hd"]/a/@href').extract()[0]
         content = '\n'.join(response.\
                 xpath('//div[@property="v:description"]//text()').extract())
         content = content.replace('"', '\'\'')
@@ -30,8 +32,10 @@ class MovieReviewSpider(RedisSpider):
         
         item['url'] = response.url
         item['MovieName'] = name
+        item['MovieLink'] = movie_link
         item['ReviewTitle'] = title
         item['ReviewAuthor'] = author
+        item['AuthorLink'] = author_link
         item['ReviewContent'] = content
         item['UpNumber'] = up
         item['DownNumber'] = down

@@ -35,6 +35,8 @@ class MovieContentSpider(RedisSpider):
                 if text_list[0] == '制片国家/地区:':
                     country = pl.xpath('./following::text()').extract()[0]
         item['url'] = response.url
+        item['PostUrl'] = response.xpath('//div[@id="mainpic"]/a/img/@src').extract()[0]
+        print item['PostUrl']
         item['MovieName'] = name
         item['Director'] = director
         item['ReleaseTime'] = ','.join(time)

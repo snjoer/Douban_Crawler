@@ -13,6 +13,7 @@ class MovieItem(scrapy.Item):
     # name = scrapy.Field()
 
     url = scrapy.Field()
+    PostUrl = scrapy.Field()
     MovieName = scrapy.Field()
     Director = scrapy.Field()
     ReleaseTime = scrapy.Field()
@@ -25,8 +26,10 @@ class ReviewItem(scrapy.Item):
 
     url = scrapy.Field()
     MovieName = scrapy.Field()
+    MovieLink = scrapy.Field()
     ReviewTitle = scrapy.Field()
     ReviewAuthor = scrapy.Field()
+    AuthorLink = scrapy.Field()
     ReviewContent = scrapy.Field()
     UpNumber = scrapy.Field()
     DownNumber = scrapy.Field()
