@@ -15,18 +15,21 @@
 
    \* the required data of a movie contains:
    1. Movie Name
-   2. Director
-   3. Release Time
-   4. Country
+   2. Post Url
+   3. Director
+   4. Release Time
+   5. Country
    
    \* the review data consists of:
    1. Movie Name
-   2. Review Title
-   3. Review Author
-   4. Review Content
-   5. Up Number
-   6. Down Number
-   7. Rate
+   2. Movie Link
+   3. Review Title
+   4. Review Author
+   5. Author Link
+   6. Review Content
+   7. Up Number
+   8. Down Number
+   9. Rate
 
    The graph below shows the underlying architecture of scrapy-redis:
 
