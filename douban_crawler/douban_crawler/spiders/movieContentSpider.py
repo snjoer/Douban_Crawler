@@ -23,9 +23,10 @@ class MovieContentSpider(RedisSpider):
     redis_key = "movie_links"
 
     def parse(self, response):
+        host = self.settings['REDIS_HOST']
         item = MovieItem()
-        name = response.xpath('//h1/span/text()').extract()[0].replace('"', '\"').replace("'", "\'")
-        director = response.xpath('//a[@rel="v:directedBy"]/text()').extract()[0].replace('"', '\"').replace("'", "\'")
+        name = response.xpath('//h1/span/text()').extract()[0].replace('"', '\'\'')
+        director = response.xpath('//a[@rel="v:directedBy"]/text()').extract()[0].replace('"', '\'\'')
         time = response.xpath('//span[@property="v:initialReleaseDate"]/text()').extract()
         pls = response.xpath('//span[@class="pl"]')
         for pl in pls:
@@ -39,6 +40,7 @@ class MovieContentSpider(RedisSpider):
         item['ReleaseTime'] = ','.join(time)
         item['Country'] = country
         more_reviews = response.url + 'reviews'
-        command = 'redis-cli lpush more_reviews ' + more_reviews
+        command = 'redis-cli -h ' + host + ' lpush more_reviews ' \
+                + more_reviews
         os.system(command)
         yield item

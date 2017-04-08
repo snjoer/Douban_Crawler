@@ -17,9 +17,9 @@ class MovieReviewSpider(RedisSpider):
 
     def parse(self, response):
         item = ReviewItem()
-        name = response.xpath('//header[@class="main-hd"]/a/text()').extract()[2].replace('"', '\"').replace("'", "\'")
-        title = response.xpath('//span[@property="v:summary"]/text()').extract()[0].replace('"', '\"').replace("'", "\'")
-        author = response.xpath('//span[@property="v:reviewer"]/text()').extract()[0].replace('"', '\"').replace("'", "\'")
+        name = response.xpath('//header[@class="main-hd"]/a/text()').extract()[2].replace('"', '\'\'')
+        title = response.xpath('//span[@property="v:summary"]/text()').extract()[0].replace('"', '\'\'')
+        author = response.xpath('//span[@property="v:reviewer"]/text()').extract()[0].replace('"', '\'\'')
         content = '\n'.join(response.\
                 xpath('//div[@property="v:description"]//text()').extract())
         content = content.replace('"', '\'\'')

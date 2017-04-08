@@ -48,6 +48,8 @@ def main():
                 print "Insert one"
         except Exception, e:
             print e.message
+            with open('failed_content', 'a') as f:
+                f.write(item['url'] + '\n')
 
 if __name__ == '__main__':
     main()
