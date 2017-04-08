@@ -24,7 +24,7 @@ class DoubanMovieSpider(scrapy.Spider):
         if self.count == 0:
             num = int(response.xpath('//span[@class="thispage"]/@data-total-page').extract()[0])
 #            self.total = num * 20
-            self.total = 40
+            self.total = 20
 
         self.count += 20
 
