@@ -13,18 +13,22 @@ class MovieItem(scrapy.Item):
     # name = scrapy.Field()
 
     MovieName = scrapy.Field()
+    PostUrl = scrapy.Field()
     Director = scrapy.Field()
     ReleaseTime = scrapy.Field()
-    Country = scrapy.Field()
-
+    Area = scrapy.Field()
+    Performers = scrapy.Field()
 
 class ReviewItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
 
     MovieName = scrapy.Field()
+    MovieLink = scrapy.Field()
     ReviewTitle = scrapy.Field()
     ReviewAuthor = scrapy.Field()
+    AuthorLink = scrapy.Field()
     ReviewContent = scrapy.Field()
     UpNumber = scrapy.Field()
     DownNumber = scrapy.Field()
+    Rate = scrapy.Field()
