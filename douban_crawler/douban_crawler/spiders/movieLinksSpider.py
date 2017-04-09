@@ -18,7 +18,7 @@ class DoubanMovieSpider(scrapy.Spider):
         lists = response.xpath('//div[@class="pl2"]/a/@href').extract()
 
         for li in lists:
-            command = "redis-cli lpush movie_links " + li
+            command = "redis-cli -h 127.0.0.1 -p 6379 lpush movie_links " + li
             os.system(command)
 
         if self.count == 0:
