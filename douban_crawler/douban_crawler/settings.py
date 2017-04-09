@@ -36,7 +36,7 @@ ROBOTSTXT_OBEY = True
 # Configure a delay for requests for the same website (default: 0)
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-DOWNLOAD_DELAY = 5
+#DOWNLOAD_DELAY = 1
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
@@ -65,7 +65,9 @@ COOKIES_ENABLED = False
 #    'douban_crawler.DoubanCrawlerMiddlewares.RotateUserAgentMiddleware': 300,
 #}
 DOWNLOADER_MIDDLEWARES = { 
-    'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,         'douban_crawler.middlewares.RotateUserAgentMiddleware': 543,
+    'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None, 
+    'douban_crawler.middlewares.ErrorHandleMiddleware': 200,
+#    'douban_crawler.middlewares.RotateUserAgentMiddleware': 543,
 #    'douban_crawler.middlewares.ProxyMiddleware': 100,
 #    'scrapy.contrib.downloadermiddleware.httpproxy.HttpProxyMiddleware': 110
 }

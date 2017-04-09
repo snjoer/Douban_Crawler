@@ -27,3 +27,10 @@ class ProxyMiddleware(object):
         print "*******-----------*Current Proxy IP:%s*-----------***********" %pro_adr
         #request.meta['proxy'] = "http://{}:{}@{}:{}".format(user,pass,'127.0.0.1','8118')
         request.meta['proxy'] = "http://"+ pro_adr
+
+class ErrorHandleMiddleware(object):
+    def process_response(self, request, response, spider):
+        if response.status != 200:
+            with open('failed_urls', 'a') as f:
+                f.write(response.url + '\n')
+            return response
