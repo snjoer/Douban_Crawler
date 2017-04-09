@@ -17,13 +17,15 @@ class MovieReviewSpider(RedisSpider):
 
     def parse(self, response):
         item = ReviewItem()
+        content = '\n'.join(response.\
+                xpath('//div[@property="v:description"]//text()').extract())
+        if len(content) < 1500:
+            return
         name = response.xpath('//header[@class="main-hd"]/a/text()').extract()[2].replace('"', '\'\'')
         movie_link = response.xpath('//header[@class="main-hd"]/a/@href').extract()[1]
         title = response.xpath('//span[@property="v:summary"]/text()').extract()[0].replace('"', '\'\'')
         author = response.xpath('//span[@property="v:reviewer"]/text()').extract()[0].replace('"', '\'\'')
         author_link = response.xpath('//header[@class="main-hd"]/a/@href').extract()[0]
-        content = '\n'.join(response.\
-                xpath('//div[@property="v:description"]//text()').extract())
         content = content.replace('"', '\'\'')
         vote = response.xpath('//div[@class="main-panel-useful"]/button/text()').extract()
         up = int(''.join(re.findall('[0-9]*', vote[0])))
