@@ -24,6 +24,15 @@ REDIS_HOST = 'localhost'
 
 REDIS_PORT = 6379
 
+
+hbase = {
+	'batch_size' = 1000,
+	'host' = "anyan",
+	'namespace' = "Douban_Movie",
+	'row_count' = 0,
+	'table_name' = "movie"
+}
+
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'douban_crawler (+http://www.yourdomain.com)'
 
@@ -81,6 +90,7 @@ DOWNLOADER_MIDDLEWARES = {
 ITEM_PIPELINES = {
 #    'douban_crawler.pipelines.SomePipeline': 300,
     'scrapy_redis.pipelines.RedisPipeline': 300
+    'scrapy_redis.pipelines.HbasePipeline': 800
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
