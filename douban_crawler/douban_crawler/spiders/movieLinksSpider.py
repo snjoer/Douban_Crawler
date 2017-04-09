@@ -4,40 +4,31 @@ This spider crawls iterates index pages and then release movie links
 to Redis Database with redis_key: "movie_links"
 
 '''    
-import scrapy
-from scrapy_redis.spiders import RedisSpider
 import os
+import scrapy
 
-class DoubanMovieSpider(RedisSpider):
+class DoubanMovieSpider(scrapy.Spider):
     count = 0
     total = 0
-
-
-    url = "https://movie.douban.com/top250?start=0&filter="
     name = "movieLinks"
-    redis_key = "movietop250"
+    start_urls = ["https://movie.douban.com/tag/2016",]
 
-def parse(self, response):
+    def parse(self, response):
+        url = response.url
+        lists = response.xpath('//div[@class="pl2"]/a/@href').extract()
 
+        for li in lists:
+            command = "redis-cli lpush movie_links " + li
+            os.system(command)
 
-    url = response.url
-    lists = response.xpath('.//div[@class="hd"]/a/@href').extract()[0]
+        if self.count == 0:
+            num = int(response.xpath('//span[@class="thispage"]/@data-total-page').extract()[0])
+            self.total = num * 20
 
-    for li in lists:
-        command = "redis-cli lpush movie_links " + li.extract()
-        os.system(command)
+        self.count += 20
 
-    if self.count == 0:
-        num = 10
-        self.url = response.url
-        self.total = num * 25
-
-    self.count += 25
-
-    if self.count < self.total:
-        new_url = self.url + '?start=' + str(self.count)
-        yield scrapy.Request(new_url, callback=self.parse)
-    else:
-        self.count = 0
-
-        pass
+        if self.count < self.total:
+            new_url = self.start_urls[0] + '?start=' + str(self.count)
+            yield scrapy.Request(new_url, callback=self.parse)
+        else:
+            self.count = 0
