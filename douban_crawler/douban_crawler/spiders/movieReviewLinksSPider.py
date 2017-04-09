@@ -27,7 +27,7 @@ class MovieReviewLinksSpider(RedisSpider):
         try:
             next_page = response.xpath('//span[@class="next"]/a/@href').extract()[0] 
         except IndexError:
-            logging.log(logging.INFO, '[-] finished crawling ... ')
+            logging.log(logging.INFO, '*** finished crawling ... ')
             return
         url = response.urljoin(next_page)
         # crawl all pages.

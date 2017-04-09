@@ -6,6 +6,7 @@ to Redis Database with redis_key: "movie_links"
 '''    
 import os
 import scrapy
+import logging
 
 class DoubanMovieSpider(scrapy.Spider):
     name = "movieLinks"
@@ -19,5 +20,9 @@ class DoubanMovieSpider(scrapy.Spider):
             command = "redis-cli -h " + host + " lpush movie_links " + li
             os.system(command)
 
-            url = response.xpath('//span[@class="next"]/a/@href').extract()[0]
+            try:
+                url = response.xpath('//span[@class="next"]/a/@href').extract()[0]
+            except IndexError:
+                logging.log(logging.INFO, '*** finished crawling ... ')
+                return
             yield scrapy.Request(url, callback=self.parse)

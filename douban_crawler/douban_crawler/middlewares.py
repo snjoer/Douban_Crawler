@@ -33,4 +33,4 @@ class ErrorHandleMiddleware(object):
         if response.status != 200:
             with open('failed_urls', 'a') as f:
                 f.write(response.url + '\n')
-            return response
+        return response
