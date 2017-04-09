@@ -19,10 +19,12 @@ class MovieReviewLinksSpider(RedisSpider):
     redis_key = "more_reviews"
 
     def parse(self, response):
+        host = self.settings['REDIS_HOST']
         lists = response.xpath('//a[@class="title-link"]/@href')
         
         for li in lists:
-            command = "redis-cli lpush review_links " + li.extract()
+            command = "redis-cli -h" + host + " lpush review_links " \
+                    + li.extract()
             os.system(command)
         
         if self.count == 0:
