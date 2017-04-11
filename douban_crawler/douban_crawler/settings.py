@@ -25,12 +25,14 @@ REDIS_HOST = 'localhost'
 REDIS_PORT = 6379
 
 
-hbase = {
-	'batch_size' = 1000,
-	'host' = "anyan",
-	'namespace' = "Douban_Movie",
-	'row_count' = 0,
-	'table_name' = "movie"
+HBASE_CFG = {
+    'batch_size': 100,
+    'host': 'anyan',
+    'namespace': 'Douban_Movie',
+    # 'row_count': 0,
+    'table_name': 'movie',
+    'family': 'Movie',
+    'namespace_separator': ':'
 }
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
@@ -57,40 +59,40 @@ COOKIES_ENABLED = False
 #TELNETCONSOLE_ENABLED = False
 
 # Override the default request headers:
-#DEFAULT_REQUEST_HEADERS = {
+# DEFAULT_REQUEST_HEADERS = {
 #   'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
 #   'Accept-Language': 'en',
 #}
 
 # Enable or disable spider middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
-#SPIDER_MIDDLEWARES = {
+# SPIDER_MIDDLEWARES = {
 #    'douban_crawler.middlewares.MyCustomSpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
+# DOWNLOADER_MIDDLEWARES = {
 #    'douban_crawler.DoubanCrawlerMiddlewares.RotateUserAgentMiddleware': 300,
 #}
-DOWNLOADER_MIDDLEWARES = { 
-    'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None, 
+DOWNLOADER_MIDDLEWARES = {
+    'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
     'douban_crawler.middlewares.RotateUserAgentMiddleware': 543,
-#    'douban_crawler.middlewares.ProxyMiddleware': 100,
-#    'scrapy.contrib.downloadermiddleware.httpproxy.HttpProxyMiddleware': 110
+    #    'douban_crawler.middlewares.ProxyMiddleware': 100,
+    #    'scrapy.contrib.downloadermiddleware.httpproxy.HttpProxyMiddleware': 110
 }
 
 # Enable or disable extensions
 # See http://scrapy.readthedocs.org/en/latest/topics/extensions.html
-#EXTENSIONS = {
+# EXTENSIONS = {
 #    'scrapy.extensions.telnet.TelnetConsole': None,
 #}
 
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-#    'douban_crawler.pipelines.SomePipeline': 300,
-    'scrapy_redis.pipelines.RedisPipeline': 300
+    #    'douban_crawler.pipelines.SomePipeline': 300,
+    'scrapy_redis.pipelines.RedisPipeline': 300,
     'scrapy_redis.pipelines.HbasePipeline': 800
 }
 
