@@ -42,6 +42,12 @@
 
    * Robustness: Douban has its anti-robots scheme, e.g. Crawl-delay: 5, therefore strategies like changing user-agent and proxy ip etc. are siginificant in our crawling practice.
 
+## Dependence
+    * Scrapy
+    * happybase >= 1.0
+    * thriftpy >= 3.9
+    * pytest
+    * more....
 ## License
 
    GPL License.
