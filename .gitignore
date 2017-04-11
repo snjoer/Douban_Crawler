@@ -1,12 +1,6 @@
 *.pyc
 *.rdb
 *.DS_Store
-<<<<<<< HEAD
-.vscode/*
-pylint.conf
-.cache/*
-=======
 .cache/*
 .vscode/*
 pylint.conf
->>>>>>> 6c98f7c5db68ea55661a1b3f0a820f673779b849
