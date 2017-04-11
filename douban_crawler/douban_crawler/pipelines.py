@@ -4,39 +4,41 @@
 #
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
-import logging
-import time
 
-from settings import hbase
+import logging
+import process_item
+from hbase_instance import HbaseInstance
+from settings import HBASE_CFG
+
 
 class DoubanCrawlerPipeline(object):
+
     def process_item(self, item, spider):
         return item
 
 
-class hbasepipeline(object):
-    def __init__(self):
-        self.conn = happybase.Connection(
-                host = hbase['host'],
-                table_prefix = hbase['namespace'],
-                table_prefix_separator = ":")
+class HbasePipeline(object):
 
-        self.conn.open()
-        self.table = self.conn.table(hbase['table_name'])
-        self.batch = self.table.batch(batch_size = hbase['batch_size'])
-        self.row = 0
+    def __init__(self):
+        self.hbase = HbaseInstance(HBASE_CFG)
+
+    def open_spider(self, spider):
+        logging.info('open hbase to host %s when spider:%s open' %
+                     (HBASE_CFG['host'], spider.name))
+        self.hbase.open()
+
+    def close_spider(self, spider):
+        logging.info('close hbase to host %s when spider:%s open' %
+                     (HBASE_CFG['host'], spider.name))
+        self.hbase.close()
 
     def process_item(self, item, spider):
-	if spider.name is not 'movieContent':
-	    return item
+        if spider.name is not 'movieContent':
+            return item
 
-        try:
-	    logging.msg("[+] " + item["MovieName"] )
-            self.batch.put(item['MovieName'], {"Movie:PostUrl": item['PostUrl'], 'Movie:Director': item['Director'], "Movie:ReleaseTime": item['ReleaseTime'], "Movie:Area": item['Area'], "Movie:Performers": item['Performers']})
-            self.batch.send()
-        except:
-	    logging.msg("[-] %s Failed." % item["MovieName"])
-        finally:
-            self.conn.close()
+        process_item.process_movie_item(
+            self.hbase, item['MovieName'], HBASE_CFG['family'], item)
+
+        logging.debug('movie:%s has been handled')
 
         return item
