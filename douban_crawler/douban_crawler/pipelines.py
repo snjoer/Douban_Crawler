@@ -26,6 +26,7 @@ class HbasePipeline(object):
         logging.info('open hbase to host %s when spider:%s open' %
                      (HBASE_CFG['host'], spider.name))
         self.hbase.open()
+        self.hbase.specify_table(HBASE_CFG['table_name'])
 
     def close_spider(self, spider):
         logging.info('close hbase to host %s when spider:%s open' %
@@ -35,10 +36,9 @@ class HbasePipeline(object):
     def process_item(self, item, spider):
         if spider.name is not 'movieContent':
             return item
+        
+        process_item.process_movie_item(self.hbase, item['MovieName'], HBASE_CFG['family'], item)
 
-        process_item.process_movie_item(
-            self.hbase, item['MovieName'], HBASE_CFG['family'], item)
-
-        logging.debug('movie:%s has been handled')
+        logging.debug('movie:%s has been handled'%item['MovieName'])
 
         return item
