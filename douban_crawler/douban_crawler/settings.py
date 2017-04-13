@@ -31,7 +31,8 @@ HBASE_CFG = {
     'namespace': 'Douban_Movie',
     # 'row_count': 0,
     'table_name': 'movie',
-    'family': 'Movie',
+    'movie_family': 'Movie',
+    'review_family': 'Review',
     'namespace_separator': ':'
 }
 
