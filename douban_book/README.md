@@ -5,25 +5,23 @@
 
 ## Introduction
 
-   Douban Movie Crawler is a scrapy crawler project crawling movie information of https://movie.douban.com.
+   Douban Movie Crawler is a scrapy crawler project crawling book information of https://book.douban.com.
 
 ## Architecture
 
    The architecture of this project is as follows:
 
-   ![](https://github.com/Rafael-Cheng/Douban_Crawler/blob/master/douban_movie/architecture.png)
+   ![](https://github.com/Rafael-Cheng/Douban_Crawler/blob/master/douban_book/architecture.png)
 
-   \* the required data of a movie contains:
-   1. Movie Name
+   \* the required data of a book contains:
+   1. Book Name
    2. Post Url
-   3. Director
+   3. Author
    4. Release Time
-   5. Area
-   6. Performers
    
    \* the review data consists of:
-   1. Movie Name
-   2. Movie Link
+   1. Book Name
+   2. Book Link
    3. Review Title
    4. Review Author
    5. Author Link
@@ -34,7 +32,7 @@
 
    The graph below shows the underlying architecture of scrapy-redis:
 
-   ![](https://github.com/Rafael-Cheng/Douban_Crawler/blob/master/douban_movie/scrapy-redis%20Architecture.png)
+   ![](https://github.com/Rafael-Cheng/Douban_Crawler/blob/master/douban_book/scrapy-redis%20Architecture.png)
 
 ## Features
 
