@@ -21,12 +21,12 @@ class MovieReviewSpider(RedisSpider):
                 xpath('//div[@property="v:description"]//text()').extract())
         if len(content) < 1500:
             return
-        name = response.xpath('//header[@class="main-hd"]/a/text()').extract()[2].replace('"', '\'\'')
+        name = response.xpath('//header[@class="main-hd"]/a/text()').extract()[2]
         movie_link = response.xpath('//header[@class="main-hd"]/a/@href').extract()[1]
-        title = response.xpath('//span[@property="v:summary"]/text()').extract()[0].replace('"', '\'\'')
-        author = response.xpath('//span[@property="v:reviewer"]/text()').extract()[0].replace('"', '\'\'')
+        title = response.xpath('//span[@property="v:summary"]/text()').extract()[0]
+        author = response.xpath('//span[@property="v:reviewer"]/text()').extract()[0]
         author_link = response.xpath('//header[@class="main-hd"]/a/@href').extract()[0]
-        content = content.replace('"', '\'\'')
+        content = content
         vote = response.xpath('//div[@class="main-panel-useful"]/button/text()').extract()
         up = int(''.join(re.findall('[0-9]*', vote[0])))
         down = int(''.join(re.findall('[0-9]*', vote[1])))

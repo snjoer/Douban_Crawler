@@ -25,8 +25,11 @@ class MovieContentSpider(RedisSpider):
     def parse(self, response):
         host = self.settings['REDIS_HOST']
         item = MovieItem()
-        name = response.xpath('//h1/span/text()').extract()[0].replace('"', '\'\'')
-        director = response.xpath('//a[@rel="v:directedBy"]/text()').extract()[0].replace('"', '\'\'')
+        name = response.xpath('//h1/span/text()').extract()[0]
+        try:
+            director = response.xpath('//a[@rel="v:directedBy"]/text()').extract()[0]
+        except IndexError:
+            director = ''
         time = response.xpath('//span[@property="v:initialReleaseDate"]/text()').extract()
         pls = response.xpath('//span[@class="pl"]')
         performers = ''.join(response.xpath('//span[@class="actor"]/span[@class="attrs"]//text()').extract()[0:-1])
