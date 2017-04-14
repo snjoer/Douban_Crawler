@@ -1,4 +1,0 @@
-将__init__.py 替换掉 happybase自带的__init__.py
-然后将parser.py 替换掉 thriftpy 的parser.py
-
-不替换的话在window下会因文件路径问题导致thriftpy和happybase无法正常加载
