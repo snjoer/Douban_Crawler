@@ -8,16 +8,15 @@
 import scrapy
 
 
-class MovieItem(scrapy.Item):
+class BookItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
 
     MovieName = scrapy.Field()
     PostUrl = scrapy.Field()
-    Director = scrapy.Field()
+    Author = scrapy.Field()
     ReleaseTime = scrapy.Field()
-    Area = scrapy.Field()
-    Performers = scrapy.Field()
+    Press = scrapy.Field()
 
 class ReviewItem(scrapy.Item):
     # define the fields for your item here like:
