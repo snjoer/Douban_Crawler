@@ -17,5 +17,18 @@ class BookReviewLinksSpider(RedisSpider):
     redis_key = "more_reviews"
 
     def parse(self, response):
-        #todo
-        pass
+        host = self.settings['REDIS_HOST']
+        lists = response.xpath('//a[@class="title-link"]/@href')
+             
+        for li in lists:
+            command = "redis-cli -h" + host + " lpush book_links " \
+                    + li.extract()
+            os.system(command)
+        try:
+            next_page = response.xpath('//span[@class="next"]/a/@href').extract()[0]
+        except IndexError:
+            logging.log(logging.INFO, '*** finished crawling ... ')
+            return
+        url = response.urljoin(next_page)
+        #crawl all pages.
+        yield scrapy.Request(url, callback=self.parse) 

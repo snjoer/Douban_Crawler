@@ -32,4 +32,3 @@ class MovieReviewLinksSpider(RedisSpider):
         url = response.urljoin(next_page)
         #crawl all pages.
         yield scrapy.Request(url, callback=self.parse)
-    
