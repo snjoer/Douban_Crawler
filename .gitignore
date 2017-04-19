@@ -1,0 +1,6 @@
+*.pyc
+*.rdb
+*.DS_Store
+.cache/*
+.vscode/*
+pylint.conf
