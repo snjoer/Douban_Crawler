@@ -1,51 +1,54 @@
+# -*- coding: UTF-8 -*-
 '''
-
 This spider extracts specific content from given movie links which can be 
 accessed from Redis Database by redis_key "movie_links" and stores the data
 to HBase.
 Moreover, this spider should export link to more reviews to Redis Database
 as redis_key "more_reviews".
-
 '''
-import re,os
+
+import os
+import sys
+import scrapy
+import random
+import string
 from scrapy_redis.spiders import RedisSpider
 from douban_crawler.items import MovieItem
-from bs4 import BeautifulSoup
+
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 class MovieContentSpider(RedisSpider):
     name = "movieContent"
     redis_key = "movie_links"
 
     def parse(self, response):
-        data = response.body
-        soup = BeautifulSoup(data,'"html.parser"')
+        host = self.settings['REDIS_HOST']
         item = MovieItem()
-        #MovieName
-        for i in soup.find_all('h1'):
-            p_1 = re.compile('\s+')
-            p_2 = re.compile('\'')
-            new_string = re.sub(p_1, '', i.text)
-            new_string = re.sub(p_2, '|', new_string)
-            MovieName = new_string
-        #Director
-        for i in soup.find_all('a', rel='v:directedBy'):
-            Director = i.text
-        #ReleaseTime
-        for i in soup.find_all('span', property='v:initialReleaseDate'):
-            ReleaseTime = i.text
-        #Country
-        info = soup.find('div', {'id': 'info'})
-        span = info.find_all('span', {'class': 'pl'})[4]
-        p_1 = re.compile('\s+')
-        Country = re.sub(p_1, '', span.nextSibling)
-
-        item['MovieName'] = MovieName
-        item['Director'] = Director
-        item['ReleaseTime'] = ReleaseTime
-        item['Country'] = Country
-        yield item
-
-        #comment_url
-        comment_url = soup.find_all('div', class_='mod-hd')[0].find_all('a', class_=None)[0]['href']
-        command = "redis-cli lpush more_reviews " + comment_url
+        name = response.xpath('//h1/span/text()').extract()[0]
+        try:
+            director = response.xpath('//a[@rel="v:directedBy"]/text()').extract()[0]
+        except IndexError:
+            director = ''
+        time = response.xpath('//span[@property="v:initialReleaseDate"]/text()').extract()
+        pls = response.xpath('//span[@class="pl"]')
+        performers = ''.join(response.xpath('//span[@class="actor"]/span[@class="attrs"]//text()').extract()[0:-1])
+        for pl in pls:
+            text_list = pl.xpath('./text()').extract()
+            if len(text_list) > 0:
+                if text_list[0] == '制片国家/地区:':
+                    country = pl.xpath('./following::text()').extract()[0]
+        item['url'] = response.url
+        item['PostUrl'] = response.xpath('//div[@id="mainpic"]/a/img/@src').extract()[0]
+        print item['PostUrl']
+        item['MovieName'] = name
+        item['Director'] = director
+        item['ReleaseTime'] = ','.join(time)
+        item['Area'] = country
+        item['Performers'] = performers
+        print performers
+        more_reviews = response.url + 'reviews'
+        command = 'redis-cli -h ' + host + ' lpush more_reviews ' \
+                + more_reviews
         os.system(command)
+        yield item

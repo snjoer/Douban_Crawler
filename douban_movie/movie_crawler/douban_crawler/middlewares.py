@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import random
+import string
 import telnetlib
 import json
 import MySQLdb
@@ -10,7 +11,7 @@ class RotateUserAgentMiddleware(UserAgentMiddleware):
     def __init__(self,user_agent=''):
         self.user_agent = user_agent
         
-    def process_request(self,request,spider):
+    def process_request(self,request, spider):
         ua = random.choice(self.user_agent_list)
         if ua:
             #print ua
@@ -38,7 +39,6 @@ class RotateUserAgentMiddleware(UserAgentMiddleware):
         "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.24 (KHTML, like Gecko) Chrome/19.0.1055.1 Safari/535.24", \
         "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/535.24 (KHTML, like Gecko) Chrome/19.0.1055.1 Safari/535.24"
     ]
-    
 class sqlTools():
     user = 'root'
     db = 'seedouban'
