@@ -10,8 +10,6 @@ as redis_key "more_reviews".
 import os
 import sys
 import scrapy
-import random
-import string
 from scrapy_redis.spiders import RedisSpider
 from douban_crawler.items import MovieItem
 
@@ -38,15 +36,15 @@ class MovieContentSpider(RedisSpider):
             if len(text_list) > 0:
                 if text_list[0] == '制片国家/地区:':
                     country = pl.xpath('./following::text()').extract()[0]
+        rate = response.xpath('//div[@typeof="v:Rating"]//text()').extract()[1]
         item['url'] = response.url
         item['PostUrl'] = response.xpath('//div[@id="mainpic"]/a/img/@src').extract()[0]
-        print item['PostUrl']
         item['MovieName'] = name
         item['Director'] = director
         item['ReleaseTime'] = ','.join(time)
         item['Area'] = country
         item['Performers'] = performers
-        print performers
+        item['Rate'] = rate
         more_reviews = response.url + 'reviews'
         command = 'redis-cli -h ' + host + ' lpush more_reviews ' \
                 + more_reviews

@@ -79,7 +79,7 @@ DOWNLOAD_DELAY = 1
 DOWNLOADER_MIDDLEWARES = {
     'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
     'douban_crawler.middlewares.RotateUserAgentMiddleware': 543,
-    'douban_crawler.middlewares.ProxyMiddleware': 100,
+#    'douban_crawler.middlewares.ProxyMiddleware': 100,
     #    'scrapy.contrib.downloadermiddleware.httpproxy.HttpProxyMiddleware': 110
 }
 
