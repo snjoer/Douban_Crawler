@@ -7,7 +7,7 @@ import os
 import scrapy
 
 class DoubanMovieSpider(scrapy.Spider):
-    start_urls = ["https://movie.douban.com/tag/1988",]
+    start_urls = ["https://movie.douban.com/tag/2016",]
     name = "movieLinks"
 
     def parse(self, response):

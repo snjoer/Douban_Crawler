@@ -29,8 +29,11 @@ class MovieReviewSpider(RedisSpider):
         vote = response.xpath('//div[@class="main-panel-useful"]/button/text()').extract()
         up = int(''.join(re.findall('[0-9]*', vote[0])))
         down = int(''.join(re.findall('[0-9]*', vote[1])))
-        rate = int(''.join(response.xpath('//span[@property="v:rating"]/text()').extract()[0]))
-        
+        try:
+            rate = int(''.join(response.xpath('//span[@property="v:rating"]/text()').extract()[0]))
+        except:
+            rate = 0
+
         item['url'] = response.url
         item['MovieName'] = name
         item['MovieLink'] = movie_link
