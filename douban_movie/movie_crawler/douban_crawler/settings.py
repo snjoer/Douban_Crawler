@@ -93,6 +93,7 @@ DOWNLOADER_MIDDLEWARES = {
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
     #    'douban_crawler.pipelines.SomePipeline': 300,
+    'douban_crawler.pipelines.SQLiteStorePipeline': 300,
     'scrapy_redis.pipelines.RedisPipeline': 300,
 #    'scrapy_redis.pipelines.HbasePipeline': 800
 }
