@@ -10,7 +10,7 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 def connectRedis():
-    conn = redis.StrictRedis(host='localhost', port=6379)
+    conn = redis.StrictRedis(host='localhost', port=6379, password='kNlTR2nPrv')
     return conn
 
 def main():
