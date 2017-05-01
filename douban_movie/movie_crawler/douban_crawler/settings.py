@@ -24,7 +24,6 @@ REDIS_HOST = 'localhost'
 
 REDIS_PORT = 6379
 
-REDIS_PARAMS = {'password': 'kNlTR2nPrv'}
 
 HBASE_CFG = {
     'batch_size': 100,
@@ -82,8 +81,6 @@ DOWNLOAD_DELAY = 1
 DOWNLOADER_MIDDLEWARES = {
     'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
     'douban_crawler.middlewares.RotateUserAgentMiddleware': 543,
-#    'douban_crawler.middlewares.ProxyMiddleware': 100,
-#    'douban_crawler.middlewares.CustomRetryMiddleware': 200,
 #    'scrapy.contrib.downloadermiddleware.httpproxy.HttpProxyMiddleware': 110
 }
 
