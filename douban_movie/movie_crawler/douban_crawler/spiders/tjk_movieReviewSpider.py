@@ -12,7 +12,7 @@ from scrapy_redis.spiders import RedisSpider
 from douban_crawler.items import ReviewItem
 
 class MovieReviewSpider(RedisSpider):
-    name = "review"
+    name = "tjk_review"
     redis_key = "review_links"
 
     def parse(self, response):

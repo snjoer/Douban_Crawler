@@ -8,13 +8,11 @@ those links is "review_links".
 '''
 
 import scrapy
+import logging
 from scrapy_redis.spiders import RedisSpider
 import os
 
 class MovieReviewLinksSpider(RedisSpider):
-    count = 0
-    total = 0
-    url = ""
     name = "reviewLinks"
     redis_key = "more_reviews"
 
@@ -23,20 +21,14 @@ class MovieReviewLinksSpider(RedisSpider):
         lists = response.xpath('//a[@class="title-link"]/@href')
         
         for li in lists:
-            command = "redis-cli -h" + host + " lpush review_links " \
+            command = "redis-cli -a kNlTR2nPrv -h " + host + " lpush review_links " \
                     + li.extract()
             os.system(command)
-        
-        if self.count == 0:
-            num = response.xpath('//span[@class="thispage"]/@data-total-page').extract()[0]
-            num = int(num)
-            self.url = response.url
-            self.total = num * 20
-        self.count += 20 
-        # crawl all pages.
-        if self.count < self.total:
-            new_url = self.url + '?start=' + str(self.count)
-            yield scrapy.Request(new_url, callback=self.parse)
-        # reset count when all pages have been crawled.
-        else:
-            self.count = 0
+        try:
+            next_page = response.xpath('//span[@class="next"]/a/@href').extract()[0]
+        except IndexError:
+            logging.log(logging.INFO, '*** finished crawling ... ')
+            return
+        url = response.urljoin(next_page)
+        #crawl all pages.
+        yield scrapy.Request(url, callback=self.parse)

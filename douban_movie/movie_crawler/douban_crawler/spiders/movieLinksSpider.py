@@ -1,12 +1,12 @@
-''
+'''
 This spider crawls iterates index pages and then release movie links 
 to Redis Database with redis_key: "movie_links"
 '''
-import scrapy
+
 import os
+import scrapy
 
 class DoubanMovieSpider(scrapy.Spider):
-
     start_urls = ["https://movie.douban.com/tag/2016",]
     name = "movieLinks"
 
@@ -16,6 +16,8 @@ class DoubanMovieSpider(scrapy.Spider):
         for li in lists:
             command = "redis-cli -h " + host + " lpush movie_links " + li
             os.system(command)
+        try:
             url = response.xpath('//span[@class="next"]/a/@href').extract()[0]
-            yield scrapy.Request(url, callback=self.parse)
-
+        except:
+            return
+        yield scrapy.Request(url, callback=self.parse)

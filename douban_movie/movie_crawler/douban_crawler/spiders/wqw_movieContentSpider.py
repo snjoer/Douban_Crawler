@@ -13,7 +13,7 @@ from douban_crawler.items import MovieItem
 from bs4 import BeautifulSoup
 
 class MovieContentSpider(RedisSpider):
-    name = "movieContent"
+    name = "wqw_movieContent"
     redis_key = "movie_links"
 
     def parse(self, response):
