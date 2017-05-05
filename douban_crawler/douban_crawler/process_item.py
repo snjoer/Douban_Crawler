@@ -7,8 +7,8 @@ def extract_movie_data_from_item(item, family):
             '%s:Performers' % family: item['Performers']}
 
 
-def send_data_to_hbase(hbase, row, movie_data):
-    hbase.batch_put(row, movie_data)
+def send_data_to_hbase(hbase, row, data):
+    hbase.batch_put(row, data)
 
 
 def extrace_review_data_from_item(item, family):
