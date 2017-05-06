@@ -3,7 +3,7 @@
 import random
 import telnetlib
 import json
-import MySQLdb
+#import MySQLdb
 from scrapy.downloadermiddlewares.useragent import UserAgentMiddleware
 
 class RotateUserAgentMiddleware(UserAgentMiddleware):
@@ -38,7 +38,8 @@ class RotateUserAgentMiddleware(UserAgentMiddleware):
         "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.24 (KHTML, like Gecko) Chrome/19.0.1055.1 Safari/535.24", \
         "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/535.24 (KHTML, like Gecko) Chrome/19.0.1055.1 Safari/535.24"
     ]
-    
+
+'''
 class sqlTools():
     user = 'root'
     db = 'seedouban'
@@ -97,3 +98,4 @@ class ProxyMiddleware(object):
         print "*******-----------*Current Proxy IP:%s*-----------***********" %pro_adr
         #request.meta['proxy'] = "http://{}:{}@{}:{}".format(user,pass,'127.0.0.1','8118')
         request.meta['proxy'] = "http://"+ pro_adr
+'''
