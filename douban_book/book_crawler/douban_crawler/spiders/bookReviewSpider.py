@@ -16,5 +16,24 @@ class BookReviewSpider(RedisSpider):
     redis_key = "review_links"
 
     def parse(self, response):
-        #todo
-        pass
+        item = ReviewItem()
+        name = response.xpath('//header[@class="main-hd"]/a/text()').extract()[2]
+        title = response.xpath('//span[@property="v:summary"]/text()').extract()[0]
+        author = response.xpath('//span[@property="v:reviewer"]/text()').extract()[0]
+        content = '\n'.join(response.\
+                xpath('//div[@property="v:description"]/p//text()').extract())
+        vote = response.xpath('//div[@class="main-panel-useful"]/button/text()').extract()
+        up = int(''.join(re.findall('[0-9]*', vote[0])))
+        down = int(''.join(re.findall('[0-9]*', vote[1])))
+        rate = response.xpath('//span[@property="v:rating"]/text()').extract()[0]
+
+        
+        item['BookName'] = name
+        item['ReviewTitle'] = title
+        item['ReviewAuthor'] = author
+        item['ReviewContent'] = content
+        item['UpNumber'] = up
+        item['DownNumber'] = down
+        item['Rate'] = rate
+
+        yield item
