@@ -22,8 +22,8 @@ class ReviewItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
 
-    MovieName = scrapy.Field()
-    MovieLink = scrapy.Field()
+    BookName = scrapy.Field()
+    BookLink = scrapy.Field()
     ReviewTitle = scrapy.Field()
     ReviewAuthor = scrapy.Field()
     AuthorLink = scrapy.Field()
