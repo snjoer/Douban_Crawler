@@ -9,7 +9,7 @@ as redis_key "more_reviews".
 '''
 import re,os
 from scrapy_redis.spiders import RedisSpider
-from douban_crawler.items import MovieItem
+from douban_crawler.items import BookItem
 
 class BookContentSpider(RedisSpider):
     name = "bookContent"
@@ -17,7 +17,7 @@ class BookContentSpider(RedisSpider):
 
     def parse(self, response):
 
-        item = MovieItem()
+        item = BookItem()
 
         bookname = response.xpath('//*[@id="wrapper"]/h1/span/text()').extract()[0]
         posturl = response.xpath('//*[@id="mainpic"]/a/img').re(u'src="(.*)" title="点击看大图"')[0]
