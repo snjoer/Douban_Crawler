@@ -1,3 +1,4 @@
+# -*- encoding:utf-8 -*-   
 '''
 This spider crawls iterates index pages and then release movie links 
 to Redis Database with redis_key: "book_links"
@@ -5,37 +6,40 @@ to Redis Database with redis_key: "book_links"
 import scrapy
 import logging
 from scrapy_redis.spiders import RedisSpider
+import sys
 import os
+
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 class BookLinksSpider(scrapy.Spider):
 
     start_urls = ["https://book.douban.com/subject/1000001/",]
-    name = "bookeLinks"
-    sbject = 10000001
+    name = "bookLinks"
+    subject = 10000001
     def parse(self, response):
  
         host = self.settings['REDIS_HOST']
-        lists = "https://book.douban.com/subject/ + 'subject' + /",
+        logo = ''.join(response.xpath("//div[@class='nav-logo']/a/text()").extract_first().split())
              
-        for li in lists:
-            command = "redis-cli -h" + host + " lpush book_links " \
-                    + li.extract()
+        if logo == '豆瓣读书':
+            command = "redis-cli -h " + host + " lpush book_links " \
+                    + response.url
             os.system(command)
       
-        if subject < 7999999 && >= 1000001
-            subject = subject + 1
-            url = "https://book.douban.com/subject/ + 'subject' + /"
+        self.subject += 1
+        if self.subject < 7999999 and self.subject >= 1000001:
+            url = "https://book.douban.com/subject/" + str(self.subject) + "/"
             yield scrapy.Request(url, callback=self.parse) 
         
-        else
-            if subject < 10000002 
-                subject = 10000002
-                url = "https://book.douban.com/subject/ + 'subject' + /"
+        else:
+            if self.subject < 10000002: 
+                self.subject = 10000002
+                url = "https://book.douban.com/subject/" + str(self.subject) + "/"
                 yield scrapy.Request(url, callback=self.parse) 
-            if subject > 20496602
+            if self.subject > 20496602:
                 logging.log(logging.INFO, '*** finished crawling ... ')
                 return
-            else
-                subject = subject + 1
-                 url = "https://book.douban.com/subject/ + 'subject' + /"
+            else:
+                url = "https://book.douban.com/subject/" + str(self.subject) + "/"
                 yield scrapy.Request(url, callback=self.parse) 

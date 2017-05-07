@@ -21,7 +21,7 @@ class BookReviewLinksSpider(RedisSpider):
         lists = response.xpath('//a[@class="title-link"]/@href')
              
         for li in lists:
-            command = "redis-cli -h" + host + " lpush book_links " \
+            command = "redis-cli -h " + host + " lpush review_links " \
                     + li.extract()
             os.system(command)
         try:

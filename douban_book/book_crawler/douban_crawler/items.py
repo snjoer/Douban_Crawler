@@ -17,6 +17,7 @@ class BookItem(scrapy.Item):
     Author = scrapy.Field()
     ReleaseTime = scrapy.Field()
     Press = scrapy.Field()
+    Rate = scrapy.Field()
 
 class ReviewItem(scrapy.Item):
     # define the fields for your item here like:

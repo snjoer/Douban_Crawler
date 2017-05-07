@@ -1,3 +1,4 @@
+# -*- encoding:utf-8 -*-
 '''
 
 This spider extracts specific content from given book links which can be 
@@ -21,18 +22,23 @@ class BookContentSpider(RedisSpider):
 
         bookname = response.xpath('//*[@id="wrapper"]/h1/span/text()').extract()[0]
         posturl = response.xpath('//*[@id="mainpic"]/a/img').re(u'src="(.*)" title="点击看大图"')[0]
-        author = response.xpath('//*[@id="info"]/a[1]/text()').extract()[0]
+        try:
+            author = response.xpath('//*[@id="info"]/a[1]/text()').extract()[0]
+        except:
+            author = ''
         new_author = re.sub(re.compile('\s+'), '', author)
         releasetime = response.xpath('//*[@id="info"]').re(u'<span class="pl">出版年:</span>(.*)<br>')[0]
         new_releasetime = re.sub(re.compile('\s+'), '', releasetime)
         press = response.xpath('//*[@id="info"]').re(u'<span class="pl">出版社:</span>(.*)<br>')[0]
         new_press = re.sub(re.compile('\s+'), '', press)
+        rate = response.xpath('//div[@typeof="v:Rating"]//text()').extract()[1]
 
         item['BookName'] = bookname
         item['PostUrl'] = posturl
         item['Author'] = new_author
         item['ReleaseTime'] = new_releasetime
         item['Press'] = new_press
+        item['Rate'] = rate
 
         #comment_url
         comment_url = re.sub(re.compile('\?icn=index-topchart-subject'),'reviews',response.url)
@@ -40,4 +46,3 @@ class BookContentSpider(RedisSpider):
         command = 'redis-cli -h ' + host + ' lpush more_reviews ' + comment_url
         os.system(command)
         yield item
-
