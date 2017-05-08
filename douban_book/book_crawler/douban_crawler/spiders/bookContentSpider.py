@@ -21,18 +21,29 @@ class BookContentSpider(RedisSpider):
         item = BookItem()
 
         bookname = response.xpath('//*[@id="wrapper"]/h1/span/text()').extract()[0]
-        posturl = response.xpath('//*[@id="mainpic"]/a/img').re(u'src="(.*)" title="点击看大图"')[0]
+        try:
+            posturl = response.xpath('//*[@id="mainpic"]/a/img').re(u'src="(.*)" title="点击看大图"')[0]
+        except:
+            posturl = ''
         try:
             author = response.xpath('//*[@id="info"]/a[1]/text()').extract()[0]
         except:
             author = ''
         new_author = re.sub(re.compile('\s+'), '', author)
-        releasetime = response.xpath('//*[@id="info"]').re(u'<span class="pl">出版年:</span>(.*)<br>')[0]
+        try:
+            releasetime = response.xpath('//*[@id="info"]').re(u'<span class="pl">出版年:</span>(.*)<br>')[0]
+        except:
+            releasetime = ''
         new_releasetime = re.sub(re.compile('\s+'), '', releasetime)
-        press = response.xpath('//*[@id="info"]').re(u'<span class="pl">出版社:</span>(.*)<br>')[0]
+        try:
+            press = response.xpath('//*[@id="info"]').re(u'<span class="pl">出版社:</span>(.*)<br>')[0]
+        except:
+            press = ''
         new_press = re.sub(re.compile('\s+'), '', press)
-        rate = response.xpath('//div[@typeof="v:Rating"]//text()').extract()[1]
-
+        try:
+            rate = response.xpath('//div[@typeof="v:Rating"]//text()').extract()[1]
+        except:
+            rate = ''
         item['BookName'] = bookname
         item['PostUrl'] = posturl
         item['Author'] = new_author

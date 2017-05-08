@@ -18,24 +18,50 @@ class BookReviewSpider(RedisSpider):
 
     def parse(self, response):
         item = ReviewItem()
-        name = response.xpath('//header[@class="main-hd"]/a/text()').extract()[2]
-        book_link = response.xpath('//header[@class="main-hd"]/a/@href').extract()[1]
-        title = response.xpath('//span[@property="v:summary"]/text()').extract()[0]
-        author = response.xpath('//span[@property="v:reviewer"]/text()').extract()[0]
-        author_link = response.xpath('//header[@class="main-hd"]/a/@href').extract()[0]
-        content = '\n'.join(response.\
+        try:
+            name = response.xpath('//header[@class="main-hd"]/a/text()').extract()[2]
+        except:
+            name = ''
+        try:
+            book_link = response.xpath('//header[@class="main-hd"]/a/@href').extract()[1]
+        except:
+            book_links = ''
+        try:
+            title = response.xpath('//span[@property="v:summary"]/text()').extract()[0]
+        except:
+            title = ''
+        try:
+            author = response.xpath('//span[@property="v:reviewer"]/text()').extract()[0]
+        except:
+            author = ''
+        try:
+            author_link = response.xpath('//header[@class="main-hd"]/a/@href').extract()[0]
+        except:
+            author_link = ''
+        try:
+            content = '\n'.join(response.\
                 xpath('//div[@property="v:description"]//text()').extract())
+        except:
+            content = ''
         if len(content) < 1500:
             return
-        vote = response.xpath('//div[@class="main-panel-useful"]/button/text()').extract()
-        up = int(''.join(re.findall('[0-9]*', vote[0])))
-        down = int(''.join(re.findall('[0-9]*', vote[1])))
+        try:
+            vote = response.xpath('//div[@class="main-panel-useful"]/button/text()').extract()
+        except:
+            vote = ''
+        try:
+            up = int(''.join(re.findall('[0-9]*', vote[0])))
+        except:
+            up = ''
+        try:
+            down = int(''.join(re.findall('[0-9]*', vote[1])))
+        except:
+            down = ''
         try:
             rate = response.xpath('//span[@property="v:rating"]/text()').extract()[0]
         except:
             rate = 0
 
-        
         item['BookName'] = name
         item['BookLink'] = book_link
         item['ReviewTitle'] = title
