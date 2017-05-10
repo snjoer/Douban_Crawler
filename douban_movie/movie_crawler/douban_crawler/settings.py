@@ -96,7 +96,6 @@ ITEM_PIPELINES = {
     #    'douban_crawler.pipelines.SomePipeline': 300,
 #    'douban_crawler.pipelines.SQLiteStorePipeline': 300,
     'scrapy_redis.pipelines.RedisPipeline': 300,
-#    'scrapy_redis.pipelines.HbasePipeline': 800
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
