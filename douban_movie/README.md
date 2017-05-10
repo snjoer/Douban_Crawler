@@ -13,8 +13,8 @@
 
    ![](https://github.com/Rafael-Cheng/Douban_Crawler/blob/master/douban_movie/architecture.png)
 
-   \* the required data of a movie contains:
-   1. Movie Name
+   * the required data of a movie contains:
+    1. Movie Name
    2. Post Url
    3. Director
    4. Release Time
