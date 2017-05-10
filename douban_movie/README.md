@@ -14,14 +14,16 @@
    ![](https://github.com/Rafael-Cheng/Douban_Crawler/blob/master/douban_movie/architecture.png)
 
    * the required data of a movie contains:
-    1. Movie Name
+    
+   1. Movie Name
    2. Post Url
    3. Director
    4. Release Time
    5. Area
    6. Performers
    
-   \* the review data consists of:
+   * the review data consists of:
+   
    1. Movie Name
    2. Movie Link
    3. Review Title
@@ -43,6 +45,7 @@
    * Robustness: Douban has its anti-robots scheme, e.g. Crawl-delay: 5, therefore strategies like changing user-agent and proxy ip etc. are siginificant in our crawling practice.
 
 ## Dependence
+   
    * Scrapy
    * Redis
    * happybase >= 1.0
@@ -55,13 +58,17 @@
 
 ---
 ## 介绍
+   
    豆瓣电影爬虫是一个从https://movie.douban.com爬取信息的爬虫项目。
 
 ## 架构
+   
    本项目架构如下：
+   
    ![](https://github.com/Rafael-Cheng/Douban_Crawler/blob/master/douban_movie/architecture.png)
    
-   \*所需数据如下：
+   * 所需数据如下：
+   
    1. 电影名
    2. 海报链接
    3. 导演
@@ -69,7 +76,8 @@
    5. 地区
    6. 表演者
 
-   \*评论数据包括：
+   * 评论数据包括：
+   
    1. 电影名
    2. 电影链接
    3. 评论标题
@@ -84,10 +92,12 @@
    ![](https://github.com/Rafael-Cheng/Douban_Crawler/blob/master/douban_movie/scrapy-redis%20Architecture.png)
 
 ## 特性
+   
    * 分布式爬取：由于数据量过大，分布式爬取不可避免。
    * 健壮性：豆瓣有它的反爬虫措施，比如：5秒的爬取延迟，因此在我们的爬虫实践中更换User-Agent和代理非常重要。
 
 ## 依赖
+   
    * Scrapy           
    * Redis            
    * happybase >= 1.0 
