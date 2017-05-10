@@ -59,6 +59,7 @@
 ## 架构
    本项目架构如下：
    ![](https://github.com/Rafael-Cheng/Douban_Crawler/blob/master/douban_book/architecture.png)
+   
    \*所需数据如下：
    1. 图书名
    2. 封面链接

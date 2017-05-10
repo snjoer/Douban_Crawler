@@ -60,6 +60,7 @@
 ## 架构
    本项目架构如下：
    ![](https://github.com/Rafael-Cheng/Douban_Crawler/blob/master/douban_movie/architecture.png)
+   
    \*所需数据如下：
    1. 电影名
    2. 海报链接

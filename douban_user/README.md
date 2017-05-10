@@ -14,12 +14,12 @@
    ![](https://github.com/Rafael-Cheng/Douban_Crawler/blob/master/douban_user/architecture.png)
 
    \* the required data of a user contains:
-   1. User Name (用户名)
-   2. Follower Number (被关注数)
-   3. Post Number (广播数)
-   4. Doulists Number (豆列数)
-   5. Collection Number(书影音数) 
-   6. Home Url (主页链接)
+   1. User Name
+   2. Follower Number
+   3. Post Number
+   4. Doulists Number
+   5. Collection Number
+   6. Home Url
 
    The graph below shows the underlying architecture of scrapy-redis:
 
@@ -52,6 +52,7 @@
 ## 架构
    本项目架构如下：
    ![](https://github.com/Rafael-Cheng/Douban_Crawler/blob/master/douban_user/architecture.png)
+   
    \*所需数据如下：
    1. 用户名
    2. 被关注数
