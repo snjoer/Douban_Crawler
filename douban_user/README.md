@@ -69,18 +69,6 @@
    5. 书影音数
    6. 主页链接
 
-   * 评论数据包括：
-   
-   1. 书名
-   2. 图书链接
-   3. 评论标题
-   4. 评论作者
-   5. 作者主页链接
-   6. 评论内容
-   7. 有用数
-   8. 没用数
-   9. 作者评分
-
    下图展示了所依赖的scrapy-redis的架构：
    ![](https://github.com/Rafael-Cheng/Douban_Crawler/blob/master/douban_movie/scrapy-redis%20Architecture.png)
 
