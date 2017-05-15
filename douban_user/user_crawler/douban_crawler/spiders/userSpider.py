@@ -16,15 +16,17 @@ class DoubanUserSpider(RedisSpider):
     redis_key = "start_url"
 
     def parse(self, response):
+        # parse proper link for getInfo and getFollwingUsers
         # call getInfo to get user info.
         # call getFollowingUsers to get following user link.
         # yield item and requests.
         pass
     
     def getInfo(self, response):
-        # gets user info, returns item
+        # gets user info, yield item
         pass
 
     def getFollowingUsers(self, response):
-        # gets following users link, return link list
+        # gets following users link
+        # callback parse method to crawl continuously
         pass
