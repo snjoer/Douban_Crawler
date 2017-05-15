@@ -56,8 +56,10 @@
 
    GPL License.
 
+---
+
 ## 介绍
-   豆瓣读书爬虫是一个从https://book.douban.com爬取信息的爬虫项目。
+   豆瓣读书爬虫是一个从https://book.douban.com 爬取信息的爬虫项目。
 
 ## 架构
    本项目架构如下：
