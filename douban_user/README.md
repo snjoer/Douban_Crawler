@@ -5,7 +5,7 @@
 
 ## Introduction
 
-   Douban User Crawler is a scrapy crawler project crawling User information of https://m.douban.com.
+   Douban User Crawler is a scrapy crawler project crawling User information of https://douban.com.
 
 ## Architecture
 
@@ -52,7 +52,7 @@
 
 ## 介绍
    
-   豆瓣用户爬虫是一个从https://m.douban.com爬取信息的爬虫项目。
+   豆瓣用户爬虫是一个从https://douban.com 爬取信息的爬虫项目。
 
 ## 架构
    
