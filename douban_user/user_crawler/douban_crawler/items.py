@@ -12,7 +12,7 @@ class UserItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
     UserName = scrapy.Field()
-    FollowerNumber = scrapy.Field()
+    FollowingNumber = scrapy.Field()
     BroadcastNumber = scrapy.Field()
     DoulistsNumber = scrapy.Field()
     CollectionNumber = scrapy.Field()
