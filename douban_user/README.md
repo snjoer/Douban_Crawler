@@ -16,7 +16,7 @@
    * the required data of a user contains:
    
    1. User Name
-   2. Follower Number
+   2. Following Number
    3. Broadcast Number
    4. Doulists Number
    5. Collection Number
@@ -63,7 +63,7 @@
    * 所需数据如下：
    
    1. 用户名
-   2. 被关注数
+   2. 关注数
    3. 广播数
    4. 豆列数
    5. 书影音数
