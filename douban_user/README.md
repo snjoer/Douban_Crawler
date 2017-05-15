@@ -17,7 +17,7 @@
    
    1. User Name
    2. Follower Number
-   3. Post Number
+   3. Broadcast Number
    4. Doulists Number
    5. Collection Number
    6. Home Url
