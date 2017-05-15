@@ -2,7 +2,7 @@
 
 This spider gets start url using key "start_url".
 It fetches user data and yield corresponding item.
-Yield requests of his/her following Users
+Yield requests of his/her following Users to crawl recursively.
 
 '''
 
@@ -28,5 +28,5 @@ class DoubanUserSpider(RedisSpider):
 
     def getFollowingUsers(self, response):
         # gets following users link
-        # callback parse method to crawl continuously
+        # callback parse method to crawl all following users continuously
         pass
