@@ -16,8 +16,8 @@
    * the required data of a user contains:
    
    1. User Name
-   2. Follower Number
-   3. Post Number
+   2. Following Number
+   3. Broadcast Number
    4. Doulists Number
    5. Collection Number
    6. Home Url
@@ -63,23 +63,11 @@
    * 所需数据如下：
    
    1. 用户名
-   2. 被关注数
+   2. 关注数
    3. 广播数
    4. 豆列数
    5. 书影音数
    6. 主页链接
-
-   * 评论数据包括：
-   
-   1. 书名
-   2. 图书链接
-   3. 评论标题
-   4. 评论作者
-   5. 作者主页链接
-   6. 评论内容
-   7. 有用数
-   8. 没用数
-   9. 作者评分
 
    下图展示了所依赖的scrapy-redis的架构：
    ![](https://github.com/Rafael-Cheng/Douban_Crawler/blob/master/douban_movie/scrapy-redis%20Architecture.png)
