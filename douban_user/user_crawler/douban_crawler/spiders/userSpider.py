@@ -22,8 +22,22 @@ class DoubanUserSpider(RedisSpider):
         pass
 
     def getInfo(self, response):
-        # get user info
-        # yield items
+        
+        host = self.settings['REDIS_HOST']
+        item = UserItem()
+        UN = response.xpath('//div[@class='info-section']/div[@class='name']').extract()[0]
+        FN = response.xpath('//a[@href='/people/1887834/followed']/div[@class='count']').extract()[0]
+        BN = response.xpath('//a[@href='/people/1887834/statuses']/div[@class='count']').extract()[0]
+        DN = response.xpath('//a[@href='/people/1887834/doulists']/div[@class='count']').extract()[0]
+        CN = response.xpath('//a[@href='/people/1887834/collection']/div[@class='count']').extract()[0]          
+        item['UserName'] = UN
+        item['FollowingNumber'] = FN
+        item['BroadcastNumber'] = BN
+        item['DoulistsNumber'] = DN
+        item['CollectionNumbe'] = CN
+        item['HomeUrl'] = response.url
+        
+        yield item
         pass
 
     def getFollowingUsers(self, response):
