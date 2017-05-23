@@ -1,4 +1,4 @@
-# -*- coding: UTF-8 -*- 
+#-*- coding: UTF-8 -*- 
 '''
 
 This spider extracts review content from the given link of "review_links" 

@@ -3,7 +3,6 @@
 import random
 import telnetlib
 import json
-import MySQLdb
 from scrapy.downloadermiddlewares.useragent import UserAgentMiddleware
 
 class RotateUserAgentMiddleware(UserAgentMiddleware):
@@ -38,34 +37,8 @@ class RotateUserAgentMiddleware(UserAgentMiddleware):
         "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.24 (KHTML, like Gecko) Chrome/19.0.1055.1 Safari/535.24", \
         "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/535.24 (KHTML, like Gecko) Chrome/19.0.1055.1 Safari/535.24"
     ]
-    
-class sqlTools():
-    user = 'root'
-    db = 'seedouban'
-    pw = 'fsadqzwx199674'
-    host = 'localhost'    
-    
-    def getIpPool(self):
-        ans = []
-        db = MySQLdb.connect(user=self.user, db=self.db, passwd=self.pw, host=self.host)
-        cursor = db.cursor()
-        cursor.execute('select * from seedouban_ippool;')
-        db.close()
-        for data in cursor.fetchall():
-            ans.append(data[1]+':'+data[2])
-        return ans
-    def setIpPool(self,index,ip,port):
-        try:
-            db = MySQLdb.connect(user=self.user, db=self.db, passwd=self.pw, host=self.host)
-            cursor = db.cursor()
-            print [index,ip,port]
-            cursor.execute('insert into seedouban_ippool values(%s,%s,%s);',[index,ip,port])
-            db.commit()
-            db.close()
-            return True
-        except:
-            return False
 
+'''
 class ProxyMiddleware(object):
     #读取代理url
     #文件路径可能要根据自己机子的环境改一下
@@ -97,3 +70,4 @@ class ProxyMiddleware(object):
         print "*******-----------*Current Proxy IP:%s*-----------***********" %pro_adr
         #request.meta['proxy'] = "http://{}:{}@{}:{}".format(user,pass,'127.0.0.1','8118')
         request.meta['proxy'] = "http://"+ pro_adr
+'''

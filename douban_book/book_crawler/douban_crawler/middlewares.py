@@ -3,70 +3,31 @@
 import random
 import telnetlib
 import json
-#import MySQLdb
+import scrapy
+import sys
+from scrapy import log
+from settings import FAILED_CODES
+from fake_useragent import UserAgent
 from scrapy.downloadermiddlewares.useragent import UserAgentMiddleware
 
 class RotateUserAgentMiddleware(UserAgentMiddleware):
-    def __init__(self,user_agent=''):
-        self.user_agent = user_agent
         
     def process_request(self,request,spider):
-        ua = random.choice(self.user_agent_list)
+        user_agent = UserAgent()
+        ua = user_agent.random
         if ua:
-            #print ua
-            print "********Current UserAgent:%s************" %ua  
-            #log.msg('Current UserAgent: '+ua, level='INFO') 
+            log.msg('Current UserAgent: '+ua, level=log.INFO) 
             request.headers.setdefault('User-Agent', ua)
-            
-    user_agent_list = [ \
-        "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/22.0.1207.1 Safari/537.1" \
-        "Mozilla/5.0 (X11; CrOS i686 2268.111.0) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11", \
-        "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.6 (KHTML, like Gecko) Chrome/20.0.1092.0 Safari/536.6", \
-        "Mozilla/5.0 (Windows NT 6.2) AppleWebKit/536.6 (KHTML, like Gecko) Chrome/20.0.1090.0 Safari/536.6", \
-        "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/19.77.34.5 Safari/537.1", \
-        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/536.5 (KHTML, like Gecko) Chrome/19.0.1084.9 Safari/536.5", \
-        "Mozilla/5.0 (Windows NT 6.0) AppleWebKit/536.5 (KHTML, like Gecko) Chrome/19.0.1084.36 Safari/536.5", \
-        "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1063.0 Safari/536.3", \
-        "Mozilla/5.0 (Windows NT 5.1) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1063.0 Safari/536.3", \
-        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_0) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1063.0 Safari/536.3", \
-        "Mozilla/5.0 (Windows NT 6.2) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1062.0 Safari/536.3", \
-        "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1062.0 Safari/536.3", \
-        "Mozilla/5.0 (Windows NT 6.2) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1061.1 Safari/536.3", \
-        "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1061.1 Safari/536.3", \
-        "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1061.1 Safari/536.3", \
-        "Mozilla/5.0 (Windows NT 6.2) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1061.0 Safari/536.3", \
-        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.24 (KHTML, like Gecko) Chrome/19.0.1055.1 Safari/535.24", \
-        "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/535.24 (KHTML, like Gecko) Chrome/19.0.1055.1 Safari/535.24"
-    ]
+
+class saveFailedMiddleware():
+    
+    def process_response(self, request, response, spider):
+        if response.status in FAILED_CODES:
+            with open('failed_request', 'a') as f:
+                f.write(response.url + '\n')
+        return response
 
 '''
-class sqlTools():
-    user = 'root'
-    db = 'seedouban'
-    pw = 'fsadqzwx199674'
-    host = 'localhost'    
-    
-    def getIpPool(self):
-        ans = []
-        db = MySQLdb.connect(user=self.user, db=self.db, passwd=self.pw, host=self.host)
-        cursor = db.cursor()
-        cursor.execute('select * from seedouban_ippool;')
-        db.close()
-        for data in cursor.fetchall():
-            ans.append(data[1]+':'+data[2])
-        return ans
-    def setIpPool(self,index,ip,port):
-        try:
-            db = MySQLdb.connect(user=self.user, db=self.db, passwd=self.pw, host=self.host)
-            cursor = db.cursor()
-            print [index,ip,port]
-            cursor.execute('insert into seedouban_ippool values(%s,%s,%s);',[index,ip,port])
-            db.commit()
-            db.close()
-            return True
-        except:
-            return False
-
 class ProxyMiddleware(object):
     #读取代理url
     #文件路径可能要根据自己机子的环境改一下
