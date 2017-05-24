@@ -9,7 +9,7 @@ as redis_key "more_reviews".
 '''
 import re,os
 from scrapy_redis.spiders import RedisSpider
-from douban_crawler.items import MovieItem
+from douban_crawler.items import BookItem
 from bs4 import BeautifulSoup
 
 class BookContentSpider(RedisSpider):
