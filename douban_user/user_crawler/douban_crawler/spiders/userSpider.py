@@ -41,7 +41,9 @@ class DoubanUserSpider(RedisSpider):
         pass
 
     def getFollowingUsers(self, response):
-        # get links of following member
-        # yield corresponding requests
-        # use parse as callback function
+        dict = json.loads(response)
+        for i in range(0, 20):
+            id = dict['users'][i]['id']
+            url = 'https://m.douban.com/rexxar/api/v2/user/' + id
+            yield scrapy.Request(url, callback=self.parse)
         pass
