@@ -11,6 +11,10 @@ as redis_key "more_reviews".
 import re,os
 from scrapy_redis.spiders import RedisSpider
 from douban_crawler.items import BookItem
+<<<<<<< HEAD
+from bs4 import BeautifulSoup
+=======
+>>>>>>> Douban_Crawler_RC/master
 
 class BookContentSpider(RedisSpider):
     name = "bookContent"

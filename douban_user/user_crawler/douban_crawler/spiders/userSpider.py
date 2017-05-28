@@ -17,19 +17,27 @@ class DoubanUserSpider(RedisSpider):
 
     def parse(self, response):
         # get uid
+        href = response.xpath('//link[@rel="canonical"]/@href').extract_first()
+        uid = re.findall(r'[0-9]*',href)
         # construct userinfo link and following link
+        url1 = 'https://m.douban.com/rexxar/api/v2/user/' + uid
+
+        url2 = 'https://m.douban.com/rexxar/api/v2/user/' + uid + '/following?start=0' 
         # yield corresponding requests
+        yield scrapy.Request(url1, callback=self.getInfo)
+        yield scrapy.Request(url2, callback=self.getFollowing) 
+
         pass
 
     def getInfo(self, response):
         
         host = self.settings['REDIS_HOST']
         item = UserItem()
-        UN = response.xpath('//div[@class='info-section']/div[@class='name']').extract()[0]
-        FN = response.xpath('//a[@href='/people/1887834/followed']/div[@class='count']').extract()[0]
-        BN = response.xpath('//a[@href='/people/1887834/statuses']/div[@class='count']').extract()[0]
-        DN = response.xpath('//a[@href='/people/1887834/doulists']/div[@class='count']').extract()[0]
-        CN = response.xpath('//a[@href='/people/1887834/collection']/div[@class='count']').extract()[0]          
+        UN = response.xpath('//div[@class="info-section"]/div[@class="name"]').extract()[0]
+        FN = response.xpath('//a[@href="/people/1887834/followed"]/div[@class="count"]').extract()[0]
+        BN = response.xpath('//a[@href="/people/1887834/statuses"]/div[@class="count"]').extract()[0]
+        DN = response.xpath('//a[@href="/people/1887834/doulists"]/div[@class="count"]').extract()[0]
+        CN = response.xpath('//a[@href="/people/1887834/collection"]/div[@class="count"]').extract()[0]          
         item['UserName'] = UN
         item['FollowingNumber'] = FN
         item['BroadcastNumber'] = BN

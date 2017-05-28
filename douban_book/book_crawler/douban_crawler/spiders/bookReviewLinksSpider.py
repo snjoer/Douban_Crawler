@@ -19,7 +19,11 @@ class BookReviewLinksSpider(RedisSpider):
     def parse(self, response):
         host = self.settings['REDIS_HOST']
         lists = response.xpath('//a[@class="title-link"]/@href')
+<<<<<<< HEAD
+
+=======
              
+>>>>>>> Douban_Crawler_RC/master
         for li in lists:
             command = "redis-cli -h " + host + " lpush review_links " \
                     + li.extract()
@@ -30,5 +34,10 @@ class BookReviewLinksSpider(RedisSpider):
             logging.log(logging.INFO, '*** finished crawling ... ')
             return
         url = response.urljoin(next_page)
+<<<<<<< HEAD
+        #crawl all pages. 
+        yield scrapy.Request(url, callback=self.parse)
+=======
         #crawl all pages.
         yield scrapy.Request(url, callback=self.parse) 
+>>>>>>> Douban_Crawler_RC/master

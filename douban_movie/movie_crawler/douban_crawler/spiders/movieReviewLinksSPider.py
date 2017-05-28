@@ -21,7 +21,11 @@ class MovieReviewLinksSpider(RedisSpider):
         lists = response.xpath('//a[@class="title-link"]/@href')
         
         for li in lists:
+<<<<<<< HEAD
+            command = "redis-cli -h " + host + " lpush review_links " \
+=======
             command = "redis-cli -a kNlTR2nPrv -h " + host + " lpush review_links " \
+>>>>>>> Douban_Crawler_RC/master
                     + li.extract()
             os.system(command)
         try:

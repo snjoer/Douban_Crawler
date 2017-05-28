@@ -85,7 +85,11 @@ DOWNLOADER_MIDDLEWARES = {
 ITEM_PIPELINES = {
     #    'douban_crawler.pipelines.SomePipeline': 300,
     'scrapy_redis.pipelines.RedisPipeline': 300,
+<<<<<<< HEAD
+    #'scrapy_redis.pipelines.HbasePipeline': 800
+=======
 #    'scrapy_redis.pipelines.HbasePipeline': 800
+>>>>>>> Douban_Crawler_RC/master
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
