@@ -48,13 +48,15 @@ ROBOTSTXT_OBEY = True
 # Configure a delay for requests for the same website (default: 0)
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-#DOWNLOAD_DELAY = 3
+DOWNLOAD_DELAY = 1
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
 
+#HTTPS_PROXY = 'http://127.0.0.1:8123'
+
 # Disable cookies (enabled by default)
-COOKIES_ENABLED = False
+#COOKIES_ENABLED = False
 
 # Disable Telnet Console (enabled by default)
 #TELNETCONSOLE_ENABLED = False
@@ -79,8 +81,7 @@ COOKIES_ENABLED = False
 DOWNLOADER_MIDDLEWARES = {
     'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
     'douban_crawler.middlewares.RotateUserAgentMiddleware': 543,
-    #    'douban_crawler.middlewares.ProxyMiddleware': 100,
-    #    'scrapy.contrib.downloadermiddleware.httpproxy.HttpProxyMiddleware': 110
+#    'scrapy.contrib.downloadermiddleware.httpproxy.HttpProxyMiddleware': 110
 }
 
 # Enable or disable extensions
@@ -93,8 +94,12 @@ DOWNLOADER_MIDDLEWARES = {
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
     #    'douban_crawler.pipelines.SomePipeline': 300,
+#    'douban_crawler.pipelines.SQLiteStorePipeline': 300,
     'scrapy_redis.pipelines.RedisPipeline': 300,
+<<<<<<< HEAD
     #'scrapy_redis.pipelines.HbasePipeline': 800
+=======
+>>>>>>> Douban_Crawler_RC/master
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -117,3 +122,5 @@ ITEM_PIPELINES = {
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+RETRY_HTTP_CODES = [403, 404, 400]

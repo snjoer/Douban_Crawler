@@ -24,18 +24,6 @@ REDIS_HOST = 'localhost'
 
 REDIS_PORT = 6379
 
-
-HBASE_CFG = {
-    'batch_size': 100,
-    'host': 'anyan',
-    'namespace': 'Douban_Movie',
-    # 'row_count': 0,
-    'table_name': 'movie',
-    'movie_family': 'Movie',
-    'review_family': 'Review',
-    'namespace_separator': ':'
-}
-
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'douban_crawler (+http://www.yourdomain.com)'
 
@@ -48,7 +36,7 @@ ROBOTSTXT_OBEY = True
 # Configure a delay for requests for the same website (default: 0)
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-#DOWNLOAD_DELAY = 3
+DOWNLOAD_DELAY = 1
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
@@ -77,16 +65,19 @@ COOKIES_ENABLED = False
 #    'douban_crawler.DoubanCrawlerMiddlewares.RotateUserAgentMiddleware': 300,
 #}
 DOWNLOADER_MIDDLEWARES = {
-    'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
+    'scrapy.downloadermiddlewares.retry.RetryMiddleware': 90,
+#    'scrapy_proxies.RandomProxy': 100,
+#    'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 110,
     'douban_crawler.middlewares.RotateUserAgentMiddleware': 543,
-    #    'douban_crawler.middlewares.ProxyMiddleware': 100,
+    'douban_crawler.middlewares.saveFailedMiddleware': 100,
     #    'scrapy.contrib.downloadermiddleware.httpproxy.HttpProxyMiddleware': 110
 }
 
 # Enable or disable extensions
 # See http://scrapy.readthedocs.org/en/latest/topics/extensions.html
-# EXTENSIONS = {
+#EXTENSIONS = {
 #    'scrapy.extensions.telnet.TelnetConsole': None,
+#    'scrapy.extensions.closespider.CloseSpider': 100,
 #}
 
 # Configure item pipelines
@@ -94,7 +85,11 @@ DOWNLOADER_MIDDLEWARES = {
 ITEM_PIPELINES = {
     #    'douban_crawler.pipelines.SomePipeline': 300,
     'scrapy_redis.pipelines.RedisPipeline': 300,
+<<<<<<< HEAD
     #'scrapy_redis.pipelines.HbasePipeline': 800
+=======
+#    'scrapy_redis.pipelines.HbasePipeline': 800
+>>>>>>> Douban_Crawler_RC/master
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -117,3 +112,5 @@ ITEM_PIPELINES = {
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+FAILED_CODES = [500, 503, 504, 400, 403, 404, 408]
