@@ -22,7 +22,7 @@ class DoubanUserSpider(RedisSpider):
         # construct userinfo link and following link
         url1 = 'https://m.douban.com/rexxar/api/v2/user/' + uid
 
-        url2 = 'https://m.douban.com/rexxar/api/v2/user/' + uid + '/following?start=' + str(self.count)
+        url2 = 'https://m.douban.com/rexxar/api/v2/user/' + uid + '/following?start=0' 
         # yield corresponding requests
         yield scrapy.Request(url1, callback=self.getInfo)
         yield scrapy.Request(url2, callback=self.getFollowing) 
