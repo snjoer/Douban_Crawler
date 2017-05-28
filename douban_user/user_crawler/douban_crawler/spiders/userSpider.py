@@ -16,42 +16,46 @@ class DoubanUserSpider(RedisSpider):
     redis_key = "start_url"
 
     def parse(self, response):
-        # get uid
-        href = response.xpath('//link[@rel="canonical"]/@href').extract_first()
-        uid = re.findall(r'[0-9]*',href)
-        # construct userinfo link and following link
-        url1 = 'https://m.douban.com/rexxar/api/v2/user/' + uid
-
-        url2 = 'https://m.douban.com/rexxar/api/v2/user/' + uid + '/following?start=0' 
-        # yield corresponding requests
-        yield scrapy.Request(url1, callback=self.getInfo)
-        yield scrapy.Request(url2, callback=self.getFollowing) 
-
-        pass
+        item = UserItem()
+        item['UserName'] = ''.join(response.\
+                xpath('//div[@class="name"]/text()').\
+                extract_first().split())
+        href = response.xpath('//div[@class="profile-nav"]/a/@href').\
+                extract_first()
+        uid = ''.join(re.findall('[0-9]*',href))
+        dataUrl = 'https://m.douban.com/rexxar/api/v2/user/' + uid
+        followedUrl = 'https://m.douban.com/rexxar/api/v2/user/' \
+                + uid + '/following?start=0'
+        yield scrapy.Request(url=dataUrl, meta={'item':item}, \
+                callback=self.getInfo)
+        yield scrapy.Request(url=followedUrl, \
+                callback=self.getFollowingUsers)
 
     def getInfo(self, response):
-        
-        host = self.settings['REDIS_HOST']
-        item = UserItem()
-        UN = response.xpath('//div[@class="info-section"]/div[@class="name"]').extract()[0]
-        FN = response.xpath('//a[@href="/people/1887834/followed"]/div[@class="count"]').extract()[0]
-        BN = response.xpath('//a[@href="/people/1887834/statuses"]/div[@class="count"]').extract()[0]
-        DN = response.xpath('//a[@href="/people/1887834/doulists"]/div[@class="count"]').extract()[0]
-        CN = response.xpath('//a[@href="/people/1887834/collection"]/div[@class="count"]').extract()[0]          
-        item['UserName'] = UN
-        item['FollowingNumber'] = FN
-        item['BroadcastNumber'] = BN
-        item['DoulistsNumber'] = DN
-        item['CollectionNumbe'] = CN
-        item['HomeUrl'] = response.url
-        
+        item = response.meta['item']
+        data = json.loads(response.text)
+        collection = data['collected_subjects_count']
+        url = data['url']
+        following_count = data['following_count']
+        broadcast = data['statuses_count']
+        doulists = data['owned_doulist_count']
+        item['FollowingNumber'] = following_count
+        item['BroadcastNumber'] = broadcast
+        item['DoulistsNumber'] = doulists
+        item['CollectionNumber'] = collection
+        item['HomeUrl'] = url
         yield item
-        pass
 
     def getFollowingUsers(self, response):
-        dict = json.loads(response)
-        for i in range(0, 20):
-            id = dict['users'][i]['id']
-            url = 'https://m.douban.com/rexxar/api/v2/user/' + id
-            yield scrapy.Request(url, callback=self.parse)
-        pass
+        url = response.url
+        urls = url.split('=')
+        count = int(urls[-1])
+        count += 20
+        data = json.loads(response.text)
+        users = data['users']
+        if users != []:
+            for user in users:
+                userLink = user['url'].replace('www', 'm')
+                yield scrapy.Request(url=userLink,callback=self.parse)
+            url = urls[0] + '=' + str(count)
+            yield scrapy.Request(url=url, callback=self.getFollowingUsers)
