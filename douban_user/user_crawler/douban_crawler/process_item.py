@@ -1,32 +1,36 @@
+#!/usr/bin/env python
+# -*- encoding:utf-8 -*-
 
-def extract_movie_data_from_item(item, family):
-    return {'%s:PostUrl' % family: item['PostUrl'],
-            '%s:Director' % family: item['Director'],
-            '%s:ReleaseTime' % family: item['ReleaseTime'],
-            '%s:Area' % family: item['Area'],
-            '%s:Performers' % family: item['Performers']}
+import sys
+import csv
+import json
+import redis
 
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
-def send_data_to_hbase(hbase, row, movie_data):
-    hbase.batch_put(row, movie_data)
+def connectRedis():
+    conn = redis.StrictRedis(host='localhost', port=6379)
+    return conn
 
+def main():
+    redis_conn = connectRedis()
+    csvfile = file('users.csv', 'a')
+    writer = csv.writer(csvfile)
+    while True:
+        try:
+            source, data = redis_conn.blpop(['user:items'],\
+                    timeout=1)
+        except:
+            break
+        item = json.loads(data)
+        data = [item['UserName'],\
+                item['FollowersNumber'],\
+                item['BroadcastNumber'],\
+                item['DoulistsNumber'],\
+                item['CollectionNumber'],\
+                item['HomeUrl']]
+        writer.writerow(data)
+    csvfile.close()
 
-def extrace_review_data_from_item(item, family):
-    return {'%s:MovieLink' % family: item['MovieLink'],
-            '%s:ReviewTitle' % family: item['ReviewTitle'],
-            '%s:ReviewAuthor' % family: item['ReviewAuthor'],
-            '%s:AuthorLink' % family: item['AuthorLink'],
-            '%s:ReviewContent' % family: item['ReviewContent'],
-            '%s:UpNumber' % family: item['UpNumber'],
-            '%s:DownNumber' % family: item['DownNumber'],
-            '%s:Rate' % family: item['Rate']}
-
-
-def process_movie_item(hbase, row, family, item):
-    data = extract_movie_data_from_item(item, family)
-    send_data_to_hbase(hbase, row, data)
-
-
-def process_review_item(hbase, row, family, item):
-    data = extrace_review_data_from_item(item, family)
-    send_data_to_hbase(hbase, row, data)
+main()
