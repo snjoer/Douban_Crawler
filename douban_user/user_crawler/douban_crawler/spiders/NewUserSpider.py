@@ -14,7 +14,6 @@ from douban_crawler.items import UserItem
 class DoubanUserSpider(RedisSpider):
     name = "user"
     redis_key = "start_url"
-    offset = 1
 
     def parse(self, response):
         if response.status != 404:
@@ -26,12 +25,11 @@ class DoubanUserSpider(RedisSpider):
                     extract_first()
             uid = ''.join(re.findall('[0-9]*',href))
             dataUrl = 'https://m.douban.com/rexxar/api/v2/user/' + uid
-            yield scrapy.Request(url=dataUrl, meta={'item':item}, \
-                    callback=self.getInfo)
-         
-        next_user_id = int(response.url.split('/')[-2]) + self.offset
-        self.offset += 1
+#            yield scrapy.Request(url=dataUrl, meta={'item':item}, \
+#                    callback=self.getInfo) 
+        next_user_id = int(response.url.split('/')[-2]) + 1
         next_url = response.url[0:-8] + str(next_user_id) + '/'
+        print "offset: " + str(next_user_id)
         yield scrapy.Request(url=next_url, callback=self.parse)
 
     def getInfo(self, response):
