@@ -1,6 +1,7 @@
 *.pyc
 *.rdb
 *.DS_Store
+*.swap
 .cache/*
 .vscode/*
 pylint.conf
